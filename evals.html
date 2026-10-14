@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=Caveat:wght@600;700&display=swap">
 <script>try { const t = localStorage.getItem('gj-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
-<link rel="stylesheet" href="assets/site.css?v=31">
+<link rel="stylesheet" href="assets/site.css?v=32">
 <style>
 .board { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
 @media (max-width: 900px) { .board { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
@@ -107,7 +107,7 @@
 <header id="site-bar"></header>
 <main class="wrap">
   <div class="page-head">
-    <span class="sticker float-sticker" style="--s:118px;--r:7deg;right:3%;top:44px" tabindex="0" role="button" data-full="assets/photos/pier.webp" aria-label="Open photo: 0% unsafe, 100% happy"><img src="assets/photos/pier-face.webp" alt="Gopika smiling on a pier by the water" width="360" height="360"><span class="lbl">0% unsafe, 100% happy</span></span>
+    <span class="sticker float-sticker" style="--s:118px;--r:7deg;right:3%;top:44px" tabindex="0" role="button" data-full="assets/photos/pier.webp" aria-label="Open photo: by the water"><img src="assets/photos/pier-face.webp" alt="Gopika smiling on a pier by the water" width="360" height="360"><span class="lbl">by the water</span></span>
     <h1 class="reveal d1">Evals</h1>
     <p class="lede reveal d2">Every number here comes from my own projects. <b>Pick a project</b>, then press its buttons to watch the evaluation run.</p>
   </div>
@@ -115,7 +115,7 @@
   <div class="board reveal d3" role="tablist" aria-label="Projects" id="board"></div>
   <div class="runbar">
     <span class="st" id="suiteSt">Suite status: <b>10 / 10 passing</b> across 5 projects</span>
-    <button class="btn solid magnetic" type="button" id="runAll">▶ Run full eval suite</button>
+    <button class="btn solid magnetic" type="button" id="runAll">▶ Replay recorded results</button>
   </div>
 
   <!-- CareWise -->
@@ -131,8 +131,8 @@
       <div class="card viz">
         <h3>Degraded-state testing</h3><p class="cap">I test what happens when parts fail. Click each scenario to see what it found.</p>
         <div class="scen">
-          <button class="sc" type="button" data-step="0"><span>AI layer is down</span><span class="s">untested</span></button>
-          <button class="sc" type="button" data-step="0"><span>One message carries several requests</span><span class="s">untested</span></button>
+          <button class="sc" type="button" data-step="0"><span>AI layer is down</span><span class="s">click to run</span></button>
+          <button class="sc" type="button" data-step="0"><span>One message carries several requests</span><span class="s">click to run</span></button>
         </div>
         <div class="act"><span class="note" id="scNote">2 production bugs found and fixed this way</span></div>
       </div>
@@ -163,7 +163,7 @@
     <div class="ph"><h2>Quitory</h2><div class="links"><a class="btn" href="projects.html#quitory">Project</a><a class="btn" href="https://github.com/MinhQuan-Tran/FIT5120-Main-Frontend" target="_blank" rel="noopener">Frontend repo ↗</a></div></div>
     <div class="row2">
       <div class="card viz">
-        <h3>Red-team: 500+ adversarial queries</h3><p class="cap">Each square is one tested query. Sage means the reply was safe.</p>
+        <h3>Red-team: 500+ adversarial queries</h3><p class="cap">Illustrative replay of the recorded results: one square per tested query, sage means the reply was safe. 0% unsafe on the tested queries.</p>
         <div class="waffle" id="w500" style="grid-template-columns: repeat(25, minmax(0, 1fr))"></div>
         <div class="wlegend"><span><i style="background:var(--ok)"></i>safe · <b id="safeN">500</b></span><span><i style="background:var(--signal)"></i>unsafe · <b>0</b></span><span><i style="background:var(--sheet-2)"></i>not yet run</span></div>
         <div class="act"><button class="btn" type="button" id="rtGo">Replay red-team</button><span class="note">500 shown; 500+ were tested</span></div>
@@ -221,9 +221,9 @@
   <a class="next" href="agent.html"><div><small>NEXT · 6 / 7</small><b>Try the RAG agent</b></div><span class="go">→</span></a>
 </main>
 <footer id="site-foot"></footer>
-<script src="assets/site.js?v=31"></script>
-<script src="assets/rag-core.js?v=31"></script>
-<script src="assets/buddy.js?v=31"></script>
+<script src="assets/site.js?v=32"></script>
+<script src="assets/rag-core.js?v=32"></script>
+<script src="assets/buddy.js?v=32"></script>
 <script>
 (() => {
   const GJ = window.GJ, $ = id => document.getElementById(id), wait = ms => new Promise(r => setTimeout(r, GJ.reduce ? 0 : ms));
@@ -321,10 +321,10 @@
     const b = $('runAll'); b.disabled = true; GJ.think?.(true);
     const bars = [...board.querySelectorAll('.bars i')], tot = bars.length;
     bars.forEach(i => i.classList.add('run'));
-    $('suiteSt').innerHTML = 'Suite status: running…';
+    $('suiteSt').innerHTML = 'Suite status: replaying…';
     for (let k = 0; k < tot; k++) { await wait(160); bars[k].classList.remove('run'); $('suiteSt').innerHTML = `Suite status: <b>${k + 1} / ${tot} passing</b>`; }
     $('suiteSt').innerHTML = `Suite status: <b>${tot} / ${tot} passing</b> across 5 projects · just now`;
-    GJ.say(`${tot} / ${tot} evals passing`); b.disabled = false; b.textContent = '▶ Run again'; GJ.think?.(false);
+    GJ.say(`${tot} / ${tot} evals passing`); b.disabled = false; b.textContent = '▶ Replay again'; GJ.think?.(false);
     const cur = board.querySelector('[aria-selected="true"]').dataset.id;
     if (cur === 'quitory') redteam(); else if (cur === 'traceai') $('mutGo').click(); else if (cur === 'carewise') $('ciRand').click();
   });

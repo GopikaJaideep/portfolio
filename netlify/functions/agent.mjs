@@ -46,7 +46,7 @@ const ANSWER_RULES = [
 const HOOKS = [
   'a six-agent system I built for CareWise without any agent framework',
   'hybrid RAG that fuses BM25 and embeddings with reciprocal rank fusion',
-  '0% unsafe outputs across 500+ red-team queries on Quitory',
+  '0% unsafe outputs on 500+ tested red-team queries on Quitory',
   'beating a GPT-4 baseline by 38 percentage points on held-out data',
   'mutation tests that caught 4 out of 4 deliberately broken safety controls in TraceAI',
   'crisis detection in CareWise that can only ever add protection',

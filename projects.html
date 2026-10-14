@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=Caveat:wght@600;700&display=swap">
 <script>try { const t = localStorage.getItem('gj-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
-<link rel="stylesheet" href="assets/site.css?v=31">
+<link rel="stylesheet" href="assets/site.css?v=32">
 <style>
 .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
 .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
@@ -71,9 +71,9 @@ dialog.drawer::backdrop { background: rgba(5, 10, 8, .45); backdrop-filter: blur
 
 <dialog class="drawer" id="drawer" aria-labelledby="drTitle"><div class="dr" id="dr"></div></dialog>
 
-<script src="assets/site.js?v=31"></script>
-<script src="assets/rag-core.js?v=31"></script>
-<script src="assets/buddy.js?v=31"></script>
+<script src="assets/site.js?v=32"></script>
+<script src="assets/rag-core.js?v=32"></script>
+<script src="assets/buddy.js?v=32"></script>
 <script>
 (() => {
   const GJ = window.GJ;
@@ -99,7 +99,7 @@ dialog.drawer::backdrop { background: rgba(5, 10, 8, .45); backdrop-filter: blur
       photo: { src: 'assets/photos/quitory.webp', cap: 'build day with the team ✌️', alt: 'Gopika and teammates at a table of laptops, one showing the Quitory app' },
       one: 'Vaping-cessation app on serverless AWS. Monash Industry Showcase, team of 3.',
       cols: [['Vue app'], ['API Gateway'], [{ t: 'Lambda × 6', hl: 1 }, { t: 'Groq + topic gate', warn: 1 }], ['RDS MySQL', 'WHO GHO API']],
-      metrics: [['0%', 'unsafe'], ['+38pp', 'vs GPT-4'], ['500+', 'red-team queries']],
+      metrics: [['0%', 'unsafe on tested queries'], ['+38pp', 'vs GPT-4'], ['500+', 'red-team queries']],
       links: [['https://github.com/MinhQuan-Tran/FIT5120-Main-Frontend', 'Frontend repo ↗']], evals: 'quitory',
       built: ['Six backend modules on AWS Lambda, API Gateway and RDS MySQL', 'A Groq-backed assistant, and a hybrid rule-based + LLM health-risk calculator using the WHO Global Health Observatory API', 'Craving-trigger analytics and peak-craving-time detection; rebuilt session tracking after iteration 1', 'About and Profile views on the Vue + Capacitor mobile frontend'],
       safety: ['Keyword-gated topic scoping on the assistant', 'Best of 25 prompts picked on the training split, then one run on held-out data', 'Red-teamed with 500+ adversarial queries'],

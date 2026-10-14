@@ -6,7 +6,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=Caveat:wght@600;700&display=swap">
 <script>try { const t = localStorage.getItem('gj-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
-<link rel="stylesheet" href="assets/site.css?v=31">
+<link rel="stylesheet" href="assets/site.css?v=32">
 <style>
 .hero { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); gap: clamp(24px, 4vw, 56px); align-items: center; padding-block: clamp(32px, 6vw, 72px) clamp(20px, 3vw, 36px); }
 @media (max-width: 880px) { .hero { grid-template-columns: minmax(0, 1fr); } }
@@ -70,13 +70,14 @@
 <main class="wrap">
   <section class="hero">
     <div>
-      <div class="kicker reveal"><span class="tag ok"><span class="dot"></span>Available for deployment · Melbourne</span></div>
+      <div class="kicker reveal"><span class="tag ok"><span class="dot"></span>Open to full-time AI/ML roles · Melbourne</span></div>
       <h1 class="reveal d1">Gopika Jaideep</h1>
       <p class="rot reveal d2">I build <span class="w" id="rotWord">LLM agents</span><br>for domains where a wrong answer hurts.</p>
-      <p class="lede reveal d3">AI/ML engineer · Master of AI, Monash. Cancer caregiving, missing persons, addiction recovery and grief, <b>shipped with the evals to prove it.</b></p>
+      <p class="lede reveal d3">AI/ML engineer · Master of AI, Monash. Cancer caregiving, missing persons, vaping cessation and memorial services, <b>shipped with the evals to prove it.</b></p>
       <div class="cta reveal d4">
         <a class="btn solid magnetic" href="projects.html">See projects <span class="arr">→</span></a>
         <a class="btn magnetic" href="agent.html">Ask my RAG agent</a>
+        <a class="btn" href="assets/Gopika_Jaideep_CV.pdf" download>Download CV ↓</a>
         <button class="btn" type="button" data-copy="email">Copy email</button>
       </div>
     </div>
@@ -94,7 +95,7 @@
   <section class="block" aria-label="Headline results">
     <div class="stats">
       <a class="stat reveal" href="projects.html#carewise"><div class="v" data-count="6">6</div><div class="k">cooperating agents in CareWise, no framework</div><div class="src">CareWise →</div></a>
-      <a class="stat reveal d1" href="evals.html#quitory"><div class="v"><span data-count="0">0</span><small>%</small></div><div class="k">unsafe outputs across 500+ red-team queries</div><div class="src">Quitory →</div></a>
+      <a class="stat reveal d1" href="evals.html#quitory"><div class="v"><span data-count="0">0</span><small>%</small></div><div class="k">unsafe outputs on 500+ tested red-team queries</div><div class="src">Quitory →</div></a>
       <a class="stat reveal d2" href="evals.html#quitory"><div class="v"><span data-count="38" data-pre="+">+38</span><small>pp</small></div><div class="k">relevance over a GPT-4 baseline, held-out data</div><div class="src">Quitory →</div></a>
       <a class="stat reveal d3" href="evals.html#traceai"><div class="v"><span data-count="4">4</span><small>/4</small></div><div class="k">broken safety controls caught by mutation tests</div><div class="src">TraceAI →</div></a>
       <a class="stat reveal d4" href="evals.html#parkingspy"><div class="v"><span data-count="94.2">94.2</span><small>%</small></div><div class="k">Random Forest accuracy on 6 live data sources</div><div class="src">ParkingSpy →</div></a>
@@ -115,7 +116,7 @@
         <a class="node" href="experience.html"><rect x="770" y="35" width="200" height="80" rx="14"/><text x="870" y="70" text-anchor="middle">Ship</text><text class="sub" x="870" y="90" text-anchor="middle">production · real users</text></a>
         <g id="dots"></g>
       </svg>
-      <div class="flow-cap"><span id="flowMsg">Every change runs the evals. Click any stage to see the work behind it.</span><span class="mono" id="flowCount">0 shipped · 0 blocked</span></div>
+      <div class="flow-cap"><span id="flowMsg">Every change runs the evals. Click any stage to see the work behind it.</span><span class="mono" id="flowCount">watch changes flow through the gate →</span></div>
     </div>
   </section>
 
@@ -158,9 +159,9 @@
 </main>
 <footer id="site-foot"></footer>
 
-<script src="assets/site.js?v=31"></script>
-<script src="assets/rag-core.js?v=31"></script>
-<script src="assets/buddy.js?v=31"></script>
+<script src="assets/site.js?v=32"></script>
+<script src="assets/rag-core.js?v=32"></script>
+<script src="assets/buddy.js?v=32"></script>
 <script>
 (() => {
   const { reduce } = window.GJ || { reduce: true };

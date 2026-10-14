@@ -56,7 +56,7 @@
     'agent.html': 'This page shows my brain at work. Ask it something!',
     'about.html': 'This is the part where you hire me. The button is bottom-right!',
   };
-  const FACTS = ['I built a six-agent system without any agent framework.', '500+ red-team queries, 0% unsafe outputs. I checked twice.', 'My mutation tests caught 4 out of 4 broken safety controls.', 'I speak four languages. Python is my fifth.', 'I once organised a walkathon for 370+ people.', 'I lead a 7-person data team at AusWise.'];
+  const FACTS = ['I built a six-agent system without any agent framework.', '500+ red-team queries, 0% unsafe outputs on the ones tested.', 'My mutation tests caught 4 out of 4 broken safety controls.', 'I speak four languages. Python is my fifth.', 'I once organised a walkathon for 370+ people.', 'I lead a 7-person data team at AusWise.'];
   function lineFor(t) {
     if (t.closest('.fab-main')) return 'Best button on the page, if you ask me.';
     if (t.closest('[data-copy]')) return 'Copy my email. I reply fast!';

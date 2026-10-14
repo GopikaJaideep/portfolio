@@ -85,5 +85,7 @@
     render({ kind: 'answer', cited, label: 'Example answer · retrieved passages' });
   })();
   $('modePill').textContent = 'checking for an LLM…'; $('modeNote').textContent = '';
+  // don't look stuck: if no provider has answered in 5 s, show extractive mode until one does
+  setTimeout(() => { if ($('modePill').textContent.startsWith('checking')) { $('modePill').textContent = 'Extractive mode'; $('modeNote').textContent = 'Answers use retrieved passages while the LLM connects.'; } }, 5000);
   RAG.ready.then(setMode); RAG.onChange(setMode);
 })();

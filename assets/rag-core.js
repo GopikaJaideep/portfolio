@@ -110,7 +110,7 @@
       'Why did the RAG agent refuse to answer? Because the passage wasn\'t in the index. …That\'s this. I\'m the joke. Ask me about my evals!',
       'A RAG agent walks into a bar. It retrieves 4 passages about bars, finds none relevant and politely leaves. Ask me something about my work and I\'ll stay.']],
     [/\b(?:football|afl|cricket|soccer|sport|match|game score|win the)/, [
-      'My only sporting stat is 0% unsafe outputs across 500+ red-team queries. Not a premiership, but I\'m proud of it.',
+      'My only sporting stat is 0% unsafe outputs on 500+ tested red-team queries. Not a premiership, but I\'m proud of it.',
       'Can\'t call the match, but I can tell you my mutation tests went 4 for 4.']],
     [/\b(?:poem|song|haiku|story|write me|lyrics)/, [
       'Roses are red, my guard tells me no, ask me about CareWise and watch the RAG go.',
@@ -120,7 +120,7 @@
       'Great general-knowledge question. Sadly my knowledge is very specific: it\'s about me.']],
     [/\d\s*[\+\-\*\/x]\s*\d|\b(?:plus|minus|times|divided|calculate|math)/, [
       'I could tell you, but my verifier would delete the citation. Ask about my +38 pp relevance gain instead; that\'s maths I can source.',
-      'The only numbers I trust are ones I can cite: 6 agents, 39+ tests, 0% unsafe. Ask me about those.']],
+      'The only numbers I trust are ones I can cite: 6 agents, 39+ tests, 0% unsafe on tested red-team queries. Ask me about those.']],
     [/\b(?:bitcoin|crypto|stock|invest|price|market|money)/, [
       'The only thing I\'ll forecast is that your next question will be about my projects. Not financial advice.',
       'My best return on investment is eval-gated CI. It\'s blocked more bad merges than any trader.']],
@@ -183,7 +183,7 @@
   const HOOKS = [
     'a six-agent system I built for CareWise without any agent framework',
     'hybrid RAG that fuses BM25 and embeddings with reciprocal rank fusion',
-    '0% unsafe outputs across 500+ red-team queries on Quitory',
+    '0% unsafe outputs on 500+ tested red-team queries on Quitory',
     'beating a GPT-4 baseline by 38 percentage points on held-out data',
     'mutation tests that caught 4 out of 4 deliberately broken safety controls in TraceAI',
     'crisis detection in CareWise that can only ever add protection',
