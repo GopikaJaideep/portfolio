@@ -56,7 +56,7 @@
   <div class="page-head">
     <span class="sticker float-sticker" style="--s:118px;--r:-8deg;right:3%;top:44px" tabindex="0" role="button" data-full="assets/photos/steps.webp" aria-label="Open photo: always learning"><img src="assets/photos/steps-face.webp" alt="Gopika in a yellow kurta on old stone steps" width="360" height="360"><span class="lbl">always learning</span></span>
     <h1 class="reveal d1">Skills</h1>
-    <p class="lede reveal d2">Every skill here is tied to a project that used it. <b>Click a project or a skill</b> to see the connections.</p>
+    <p class="lede reveal d2">Skills are tied to the projects that used them. <b>Click a project or a skill</b> to see the connections.</p>
   </div>
 
   <div class="sec-title"><div><div class="eyebrow">Skills graph</div><h2 style="margin-top:10px">What I used, and where</h2></div><button class="btn" type="button" id="skReset">Clear selection</button></div>
@@ -108,7 +108,7 @@
   const PROJ = {
     CareWise: ['Python', 'FastAPI', 'RAG', 'LLM agents', 'Anthropic API', 'Gemini API', 'LLM evaluation', 'Pytest', 'CI/CD'],
     TraceAI: ['Python', 'Mutation testing', 'LLM evaluation', 'Threat modelling'],
-    Quitory: ['AWS', 'MySQL', 'Groq', 'Vue', 'LLM evaluation', 'Red-teaming'],
+    Quitory: ['AWS', 'MySQL', 'SQL', 'Groq', 'WHO API', 'Vue', 'LLM evaluation', 'Red-teaming'],
     PhotoAlchemy: ['React', 'Replicate API', 'Computer vision'],
     'AusWise analytics': ['Python', 'XGBoost', 'SHAP', 'BERTopic', 'Groq', 'Apify'],
     ParkingSpy: ['Python', 'scikit-learn', 'Data pipelines'],
@@ -119,7 +119,7 @@
   const GROUPS = {
     'AI & ML': ['RAG', 'LLM agents', 'LLM evaluation', 'Red-teaming', 'Mutation testing', 'XGBoost', 'SHAP', 'BERTopic', 'scikit-learn', 'Deep learning', 'Computer vision'],
     'Engineering': ['Python', 'FastAPI', 'Pytest', 'CI/CD', 'React', 'Vue', 'Java', 'Android', 'Threat modelling'],
-    'Cloud, data & APIs': ['AWS', 'MySQL', 'Data pipelines', 'Apify', 'Anthropic API', 'Gemini API', 'Groq', 'Replicate API'],
+    'Cloud, data & APIs': ['AWS', 'SQL', 'MySQL', 'Data pipelines', 'Apify', 'Anthropic API', 'Gemini API', 'Groq', 'Replicate API', 'WHO API', 'gTTS'],
   };
   const used = s => Object.keys(PROJ).filter(p => PROJ[p].includes(s));
   const HINT = 'Each <span class="legend-dots"><i></i></span> dot is one project that used the skill.';
@@ -141,7 +141,7 @@
     const was = c.getAttribute('aria-pressed') === 'true'; clear(); if (was) return;
     c.setAttribute('aria-pressed', 'true'); wrap.classList.add('dim'); c.classList.add('on');
     const ps = used(c.dataset.s); ps.forEach(p => wrap.querySelector(`.pb[data-p="${p}"]`).classList.add('lit'));
-    hint.innerHTML = `${c.dataset.s}: used in ${ps.map(p => `<a href="projects.html#${LINK[p]}">${p}</a>`).join(', ')}`;
+    hint.innerHTML = ps.length ? `${c.dataset.s}: used in ${ps.map(p => `<a href="projects.html#${LINK[p]}">${p}</a>`).join(', ')}` : `${c.dataset.s}: on my CV toolkit, not part of a featured project`;
   });
   $('skReset').addEventListener('click', clear);
   clear();
