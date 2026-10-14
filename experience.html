@@ -38,7 +38,14 @@
 
 .detail { display: grid; gap: 22px; margin-top: 16px; }
 .role { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 20px; scroll-margin-top: 90px; }
-@media (max-width: 860px) { .role { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 860px) {
+  .role { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  /* numbers sit in one compact row under the role instead of three tall full-width boxes */
+  .role .d-side { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 8px; }
+  .role .d-side .stat { padding: 12px; }
+  .role .d-side .stat .v { font-size: 26px; }
+  .role .d-side .stat .k { font-size: 12px; margin-top: 6px; }
+}
 .role .d-main { transition: box-shadow .3s, border-color .3s; }
 .role.sel .d-main { border-color: var(--cat); box-shadow: 0 0 0 2px var(--cat), 0 18px 40px -24px rgba(30, 18, 45, .45); }
 .d-main { padding: 26px; }
