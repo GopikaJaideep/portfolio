@@ -14,7 +14,7 @@
   if (bar) {
     bar.className = 'bar';
     bar.innerHTML = `<div class="wrap">
-      <a class="brand" href="index.html" aria-label="Gopika Jaideep, home"><span class="logo">GJ</span><b>gopika-jaideep</b><span>/ model card</span></a>
+      <a class="brand" href="index.html" aria-label="Gopika Jaideep, home"><span class="logo">GJ</span><b>gopika-jaideep</b></a>
       <nav class="tabs" aria-label="Pages"><span class="pill" aria-hidden="true"></span>${PAGES.map(([h, l]) => `<a href="${h}"${h === here ? ' aria-current="page"' : ''}>${l}</a>`).join('')}</nav>
       <button class="theme" id="themeBtn" type="button"></button></div>`;
     const tabs = bar.querySelector('.tabs'), pill = tabs.querySelector('.pill');
@@ -75,7 +75,7 @@
 
   // ---------- footer ----------
   const foot = document.getElementById('site-foot');
-  if (foot) { foot.className = 'site wrap'; foot.innerHTML = `<span>© 2026 Gopika Jaideep · Carlton, VIC</span><span>Format after "Model Cards for Model Reporting" (Mitchell et al., 2019)</span>`; }
+  if (foot) { foot.className = 'site wrap'; foot.innerHTML = `<span>© 2026 Gopika Jaideep · Carlton, VIC</span><span>AI/ML engineer · Melbourne</span>`; }
 
   // ---------- ripple + magnetic buttons ----------
   document.addEventListener('pointerdown', e => {

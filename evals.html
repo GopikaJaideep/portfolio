@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=Caveat:wght@600;700&display=swap">
 <script>try { const t = localStorage.getItem('gj-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
-<link rel="stylesheet" href="assets/site.css?v=29">
+<link rel="stylesheet" href="assets/site.css?v=30">
 <style>
 .board { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
 @media (max-width: 900px) { .board { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
@@ -108,7 +108,6 @@
 <main class="wrap">
   <div class="page-head">
     <span class="sticker float-sticker" style="--s:118px;--r:7deg;right:3%;top:44px" tabindex="0" role="button" data-full="assets/photos/pier.webp" aria-label="Open photo: 0% unsafe, 100% happy"><img src="assets/photos/pier-face.webp" alt="Gopika smiling on a pier by the water" width="360" height="360"><span class="lbl">0% unsafe, 100% happy</span></span>
-    <div class="eyebrow reveal">§5 · Evaluation results</div>
     <h1 class="reveal d1">Evals</h1>
     <p class="lede reveal d2">Every number here comes from my own projects. <b>Pick a project</b>, then press its buttons to watch the evaluation run.</p>
   </div>
@@ -222,9 +221,9 @@
   <a class="next" href="agent.html"><div><small>NEXT · 6 / 7</small><b>Try the RAG agent</b></div><span class="go">→</span></a>
 </main>
 <footer id="site-foot"></footer>
-<script src="assets/site.js?v=29"></script>
-<script src="assets/rag-core.js?v=29"></script>
-<script src="assets/buddy.js?v=29"></script>
+<script src="assets/site.js?v=30"></script>
+<script src="assets/rag-core.js?v=30"></script>
+<script src="assets/buddy.js?v=30"></script>
 <script>
 (() => {
   const GJ = window.GJ, $ = id => document.getElementById(id), wait = ms => new Promise(r => setTimeout(r, GJ.reduce ? 0 : ms));
