@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=Caveat:wght@600;700&display=swap">
 <script>try { const t = localStorage.getItem('gj-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
-<link rel="stylesheet" href="assets/site.css?v=32">
+<link rel="stylesheet" href="assets/site.css?v=33">
 <style>
 .sk { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 16px; }
 @media (max-width: 820px) { .sk { grid-template-columns: minmax(0, 1fr); } }
@@ -56,7 +56,7 @@
   <div class="page-head">
     <span class="sticker float-sticker" style="--s:118px;--r:-8deg;right:3%;top:44px" tabindex="0" role="button" data-full="assets/photos/steps.webp" aria-label="Open photo: always learning"><img src="assets/photos/steps-face.webp" alt="Gopika in a yellow kurta on old stone steps" width="360" height="360"><span class="lbl">always learning</span></span>
     <h1 class="reveal d1">Skills</h1>
-    <p class="lede reveal d2">Skills are tied to the projects that used them. <b>Click a project or a skill</b> to see the connections.</p>
+    <p class="lede reveal d2">Every skill here is tied to a project that used it. <b>Click a project or a skill</b> to see the connections.</p>
   </div>
 
   <div class="sec-title"><div><div class="eyebrow">Skills graph</div><h2 style="margin-top:10px">What I used, and where</h2></div><button class="btn" type="button" id="skReset">Clear selection</button></div>
@@ -99,16 +99,16 @@
   <a class="next" href="evals.html"><div><small>NEXT · 5 / 7</small><b>Evaluation results</b></div><span class="go">→</span></a>
 </main>
 <footer id="site-foot"></footer>
-<script src="assets/site.js?v=32"></script>
-<script src="assets/rag-core.js?v=32"></script>
-<script src="assets/buddy.js?v=32"></script>
+<script src="assets/site.js?v=33"></script>
+<script src="assets/rag-core.js?v=33"></script>
+<script src="assets/buddy.js?v=33"></script>
 <script>
 (() => {
   const GJ = window.GJ, $ = id => document.getElementById(id);
   const PROJ = {
     CareWise: ['Python', 'FastAPI', 'RAG', 'LLM agents', 'Anthropic API', 'Gemini API', 'LLM evaluation', 'Pytest', 'CI/CD'],
     TraceAI: ['Python', 'Mutation testing', 'LLM evaluation', 'Threat modelling'],
-    Quitory: ['AWS', 'MySQL', 'SQL', 'Groq', 'WHO API', 'Vue', 'LLM evaluation', 'Red-teaming'],
+    Quitory: ['AWS', 'MySQL', 'SQL', 'Groq', 'WHO API', 'gTTS', 'Vue', 'LLM evaluation', 'Red-teaming'],
     PhotoAlchemy: ['React', 'Replicate API', 'Computer vision'],
     'AusWise analytics': ['Python', 'XGBoost', 'SHAP', 'BERTopic', 'Groq', 'Apify'],
     ParkingSpy: ['Python', 'scikit-learn', 'Data pipelines'],

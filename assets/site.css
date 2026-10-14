@@ -274,6 +274,9 @@ footer.site { border-top: 1px solid var(--rule); margin-top: 24px; padding-block
 .photo-strip { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 26px 22px; padding: 18px 8px 8px; }
 .photo-strip .polaroid { width: min(220px, 42vw); }
 .photo-strip .polaroid:nth-child(2n) { --r: 3deg; margin-top: 18px; } .photo-strip .polaroid:nth-child(3n) { --r: -1.5deg; }
+/* 2 x 2 photo grid (home page): two rows, two columns, at every screen size */
+.photo-strip.grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 260px)); justify-content: center; gap: 28px clamp(14px, 4vw, 34px); }
+.photo-strip.grid2 .polaroid { width: 100%; margin-top: 0; }
 .photo-strip .polaroid.wide { width: min(330px, 86vw); --ar: 4 / 3; }
 .float-sticker { position: absolute; z-index: 2; }
 @media (max-width: 760px) { .float-sticker { position: static; display: block; margin: 8px 6px 0 auto; width: 92px; } }   /* small sticker tucked at the right on phones */
