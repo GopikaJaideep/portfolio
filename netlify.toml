@@ -1,0 +1,11 @@
+# Netlify config for Gopika Jaideep's portfolio.
+# Static site published from this folder; the RAG agent's free LLM backend lives in netlify/functions/agent.mjs
+# and is served at /api/agent (see `config.path` in the function).
+[build]
+  publish = "dist"
+  functions = "netlify/functions"
+  # copies only the public site into dist/ and adds <!doctype html> to index.html (the source stays artifact-compatible)
+  command = "node netlify/add-doctype.mjs"
+
+[functions]
+  node_bundler = "esbuild"

@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>About · Gopika Jaideep</title>
+<meta name="description" content="About Gopika Jaideep, AI/ML engineer in Melbourne: intended use, known limitations, and how to get in touch.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=Caveat:wght@600;700&display=swap">
+<script>try { const t = localStorage.getItem('gj-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
+<link rel="stylesheet" href="assets/site.css?v=29">
+<style>
+.intro { position: relative; overflow: visible !important; }
+.intro > .ph { border-radius: 16px 0 0 16px; }
+@media (max-width: 760px) { .intro > .ph { border-radius: 16px 16px 0 0; } .intro > .sticker { left: auto !important; right: 12px; } }
+.intro { display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: 0; padding: 0; overflow: hidden; }
+@media (max-width: 760px) { .intro { grid-template-columns: minmax(0, 1fr); } }
+.intro .ph { background: var(--sheet-2); min-height: 300px; overflow: hidden; }
+.intro .ph img { width: 100%; height: 100%; object-fit: cover; object-position: center 18%; display: block; transition: transform .8s var(--ease); }
+.intro:hover .ph img { transform: scale(1.04); }
+@media (max-width: 760px) { .intro .ph { aspect-ratio: 4 / 5; max-height: 460px; min-height: 0; } }
+.intro .tx { padding: clamp(22px, 3vw, 32px); display: grid; gap: 16px; align-content: center; }
+.intro .tx p { margin: 0; font-size: 16.5px; color: var(--ink-2); max-width: 62ch; }
+.intro .tx p b { color: var(--ink); font-weight: 600; }
+.facts { display: flex; flex-wrap: wrap; gap: 8px; }
+.facts a.tag { text-decoration: none; }
+.facts a.tag:hover { border-color: var(--ink); color: var(--ink); }
+
+.uses { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 760px) { .uses { grid-template-columns: minmax(0, 1fr); } }
+.uses ul { margin: 10px 0 0; padding: 0; list-style: none; display: grid; gap: 9px; }
+.uses li { padding-left: 26px; position: relative; font-size: 14.5px; }
+.uses .in li::before { content: "✓"; position: absolute; left: 0; color: var(--ok); font-weight: 700; }
+.uses .out li::before { content: "✕"; position: absolute; left: 0; color: var(--signal); font-weight: 700; }
+.uses h3 { font: 600 12px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+.uses .in h3 { color: var(--ok); } .uses .out h3 { color: var(--signal); }
+
+.lims { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 860px) { .lims { grid-template-columns: minmax(0, 1fr); } }
+.flip { perspective: 900px; border: 0; padding: 0; background: none; cursor: pointer; text-align: left; font: inherit; color: inherit; min-height: 170px; }
+.flip .in { position: relative; height: 100%; min-height: 170px; transition: transform .6s var(--ease); transform-style: preserve-3d; }
+.flip[aria-pressed="true"] .in { transform: rotateY(180deg); }
+.flip .f, .flip .b { position: absolute; inset: 0; border-radius: 16px; padding: 22px; backface-visibility: hidden; display: grid; align-content: space-between; }
+.flip .f { background: var(--sheet); border: 1.5px dashed color-mix(in srgb, var(--signal) 50%, var(--rule)); }
+.flip .b { background: var(--accent); color: var(--paper); transform: rotateY(180deg); }
+.flip b { font: 700 19px/1.2 var(--display); }
+.flip small { font: 500 12px/1 var(--mono); opacity: .7; }
+.flip .b p { margin: 0; font-size: 14.5px; line-height: 1.5; }
+@media (prefers-reduced-motion: reduce) { .flip .in { transform: none !important; } .flip[aria-pressed="true"] .f { visibility: hidden; } .flip .b { transform: none; visibility: hidden; } .flip[aria-pressed="true"] .b { visibility: visible; } }
+
+.contact { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; align-items: stretch; }
+@media (max-width: 860px) { .contact { grid-template-columns: minmax(0, 1fr); } }
+.cbig { background: var(--accent); color: var(--paper); border-color: var(--accent); display: grid; gap: 16px; align-content: space-between; }
+.cbig h2 { font-size: clamp(32px, 4.5vw, 52px); color: var(--paper); }
+.cbig .mail { font: 500 clamp(15px, 1.8vw, 18px)/1.3 var(--mono); user-select: all; word-break: break-all; opacity: .9; }
+.cbig .row { display: flex; flex-wrap: wrap; gap: 8px; }
+.cbig .btn { background: transparent; color: var(--paper); border-color: color-mix(in srgb, var(--paper) 45%, transparent); }
+.cbig .btn:hover { border-color: var(--paper); }
+.cbig .btn.solid { background: var(--paper); color: var(--accent); border-color: var(--paper); }
+.bib { position: relative; }
+.bib pre { margin: 0; padding: 18px 20px; font: 400 13px/1.75 var(--mono); color: var(--term-ink); white-space: pre-wrap; word-break: break-word; }
+.bib .k { color: #c6b3e6; } .bib .s { color: #f6f1fb; }
+.bib button { position: absolute; top: 10px; right: 10px; font: 500 11px/1 var(--mono); color: var(--term-ink); background: rgba(233,226,242,.08); border: 1px solid rgba(233,226,242,.25); border-radius: 8px; padding: 8px 10px; cursor: pointer; }
+</style>
+</head>
+<body data-page="about.html">
+<header id="site-bar"></header>
+<main class="wrap">
+  <div class="page-head">
+    <div class="eyebrow reveal">§7 · About</div>
+    <h1 class="reveal d1">About me</h1>
+    <p class="lede reveal d2">Who I am, where to deploy me, what to watch out for, and how to reach me.</p>
+  </div>
+
+  <div class="card intro reveal">
+    <div class="ph"><img src="gopika.jpg" alt="Gopika Jaideep smiling, in a light green shirt and glasses" width="800" height="1000"></div>
+    <div class="tx">
+      <p>I'm an AI/ML engineer in <b>Carlton, Melbourne</b> with a <b>Master of AI from Monash</b>. I build LLM agents, RAG systems and ML models, mostly for domains where getting it wrong hurts someone, and I lead a <b>7-person data team</b> as a volunteer at AusWise.</p>
+      <div class="facts">
+        <a class="tag ok" href="experience.html"><span class="dot"></span>Open to full-time AI/ML roles</a>
+        <a class="tag" href="education.html">Monash · KTU</a>
+        <a class="tag" href="skills.html">Python · FastAPI · AWS</a>
+        <a class="tag" href="education.html">4 languages</a>
+      </div>
+    </div>
+    <span class="sticker" style="position:absolute;--s:96px;--r:8deg;left:220px;top:-22px" tabindex="0" role="button" data-full="assets/photos/grad.webp" aria-label="Open photo: Master of AI, done"><img src="assets/photos/grad-face.webp" alt="Gopika laughing in a graduation cap" width="360" height="360"><span class="lbl">MAI ✓</span></span>
+  </div>
+
+  <section class="block" aria-labelledby="life">
+    <div class="sec-title"><div><div class="eyebrow">Life outside the IDE</div><h2 id="life" style="margin-top:10px">A few favourite moments</h2></div></div>
+    <div class="photo-strip">
+      <figure class="polaroid reveal" style="--r:-3deg" tabindex="0" role="button" aria-label="Open photo: a quiet moment on the steps"><span class="tape"></span><img src="assets/photos/steps.webp" alt="Gopika in a yellow kurta sitting on old stone steps, looking at her phone" loading="lazy" style="--ar:7/8"><figcaption>a quiet moment</figcaption></figure>
+      <span class="sticker reveal d1" style="--s:118px;--r:-7deg;align-self:center" tabindex="0" role="button" data-full="assets/photos/mall.webp" aria-label="Open photo: selfie"><img src="assets/photos/mall-face.webp" alt="Smiling selfie of Gopika" width="360" height="360"><span class="lbl">hi! 👋</span></span>
+      <figure class="polaroid reveal d2" style="--r:3deg" tabindex="0" role="button" aria-label="Open photo: thinking about evals"><span class="tape"></span><img src="assets/photos/chin.webp" alt="Gopika smiling with her chin on her hand" loading="lazy" style="--ar:3/4"><figcaption>thinking about evals</figcaption></figure>
+      <span class="sticker reveal d3" style="--s:104px;--r:9deg;align-self:flex-end" tabindex="0" role="button" data-full="assets/photos/wall.webp" aria-label="Open photo: yellow kurta day"><img src="assets/photos/wall-face.webp" alt="Gopika smiling against a yellow wall" width="360" height="360"><span class="lbl">sunny days</span></span>
+      <figure class="polaroid reveal d3" style="--r:-2deg" tabindex="0" role="button" aria-label="Open photo: by the lake"><span class="tape"></span><img src="assets/photos/lake.webp" alt="Gopika by a lake under a pink evening sky" loading="lazy" style="--ar:3/4"><figcaption>pink skies</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-title"><div><div class="eyebrow">Intended use</div><h2 style="margin-top:10px">Where to deploy me</h2></div></div>
+    <div class="uses">
+      <div class="card in reveal"><h3>Intended use</h3><ul><li>LLM agents, RAG and ML for high-stakes domains</li><li>Eval pipelines, red-teaming and CI gates</li><li>Python / FastAPI backends on serverless AWS</li><li>Leading small data teams</li></ul></div>
+      <div class="card out reveal d1"><h3>Out of scope</h3><ul><li>Shipping a demo without evals</li><li>Citing sources that were never retrieved</li><li>Removing a safety layer to save latency</li><li>"The model said so" as a test</li></ul></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-title"><div><div class="eyebrow">Known limitations</div><h2 style="margin-top:10px">Biases, disclosed</h2><p>Tap a card to see the evidence.</p></div></div>
+    <div class="lims">
+      <button class="flip reveal" type="button" aria-pressed="false"><div class="in"><div class="f"><b>Strong bias toward tests</b><small>tap to see evidence ↻</small></div><div class="b"><p>Will ask for the eval before the demo. CareWise can't merge a change that makes crisis detection or retrieval worse.</p><small>see Evals · CareWise</small></div></div></button>
+      <button class="flip reveal d1" type="button" aria-pressed="false"><div class="in"><div class="f"><b>Asks "what if the AI is down?"</b><small>tap to see evidence ↻</small></div><div class="b"><p>Tests systems in degraded states by habit. That's how I found two production bugs in CareWise.</p><small>see Evals · CareWise</small></div></div></button>
+      <button class="flip reveal d2" type="button" aria-pressed="false"><div class="in"><div class="f"><b>Opinionated about citations</b><small>tap to see evidence ↻</small></div><div class="b"><p>Won't show a source the system didn't actually retrieve, including in my RAG agent.</p><small>see RAG Agent</small></div></div></button>
+    </div>
+  </section>
+
+  <section class="block" id="contact">
+    <div class="contact">
+      <div class="card cbig reveal">
+        <div><div class="eyebrow" style="color:var(--paper)">Contact</div><h2 style="margin-top:12px">Let's build something careful.</h2></div>
+        <div class="mail">gopikajaideep7@gmail.com</div>
+        <div class="row"><button class="btn solid" type="button" data-copy="email">Copy email</button><a class="btn" href="https://linkedin.com/in/gopikajaideep" target="_blank" rel="noopener">LinkedIn ↗</a><a class="btn" href="https://github.com/GopikaJaideep" target="_blank" rel="noopener">GitHub ↗</a></div>
+      </div>
+      <div class="term bib reveal d1">
+        <div class="tb"><i></i><i></i><i></i><span>cite.bib</span></div>
+        <button type="button" id="copyBib">Copy BibTeX</button>
+<pre id="bibtex">@<span class="k">engineer</span>{<span class="s">jaideep2026</span>,
+  <span class="k">author</span>   = {<span class="s">Gopika Jaideep</span>},
+  <span class="k">title</span>    = {<span class="s">AI/ML Engineer: agents, RAG, ML, evals</span>},
+  <span class="k">year</span>     = {<span class="s">2026</span>},
+  <span class="k">address</span>  = {<span class="s">Melbourne, Australia</span>},
+  <span class="k">email</span>    = {<span class="s">gopikajaideep7@gmail.com</span>},
+  <span class="k">note</span>     = {<span class="s">Available for full-time roles</span>}
+}</pre>
+      </div>
+    </div>
+  </section>
+
+  <a class="next" href="index.html"><div><small>BACK TO START</small><b>Home</b></div><span class="go">↺</span></a>
+</main>
+<footer id="site-foot"></footer>
+<script src="assets/site.js?v=29"></script>
+<script src="assets/rag-core.js?v=29"></script>
+<script src="assets/buddy.js?v=29"></script>
+<script>
+(() => {
+  document.querySelectorAll('.flip').forEach(f => f.addEventListener('click', () => f.setAttribute('aria-pressed', String(f.getAttribute('aria-pressed') !== 'true'))));
+  document.getElementById('copyBib').addEventListener('click', () => window.GJ.copy(document.getElementById('bibtex').textContent));
+  if (location.hash === '#contact') setTimeout(() => document.getElementById('contact').scrollIntoView(), 150);
+})();
+</script>
+</body>
+</html>

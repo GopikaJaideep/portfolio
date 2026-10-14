@@ -1,0 +1,5 @@
+# secrets: the Groq key lives only in Netlify's environment variables (or a local .env for `netlify dev`)
+.env
+.env.*
+.netlify/
+dist/

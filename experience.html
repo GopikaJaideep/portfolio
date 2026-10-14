@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Experience · Gopika Jaideep</title>
+<meta name="description" content="Gopika Jaideep's work and volunteering experience as an interactive timeline.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=Caveat:wght@600;700&display=swap">
+<script>try { const t = localStorage.getItem('gj-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
+<link rel="stylesheet" href="assets/site.css?v=29">
+<style>
+.gantt { padding: 20px 22px 16px; }
+.g-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 14px; }
+.g-filters { display: flex; flex-wrap: wrap; gap: 6px; }
+.g-filters .chip i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 7px; vertical-align: -1px; }
+.g-grid { display: grid; grid-template-columns: 230px minmax(0, 1fr); column-gap: 16px; }
+@media (max-width: 720px) { .g-grid { grid-template-columns: minmax(0, 1fr); } .g-lab { padding-top: 10px !important; } }
+.g-axis { position: relative; height: 22px; grid-column: 2; }
+@media (max-width: 720px) { .g-axis { grid-column: 1; } }
+.g-axis span { position: absolute; top: 0; transform: translateX(-50%); font: 500 11.5px/1 var(--mono); color: var(--ink-3); }
+.g-row { display: contents; }
+.g-row[hidden] { display: none !important; }
+.g-lab { padding: 9px 0; font-size: 13.5px; line-height: 1.3; min-width: 0; }
+.g-lab b { display: block; font-weight: 600; color: var(--ink); }
+.g-lab span { color: var(--ink-2); font-size: 12.5px; }
+.g-track { position: relative; height: 40px; border-top: 1px dashed var(--rule); align-self: center; }
+.g-track .yr { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--rule); opacity: .6; }
+.g-bar { position: absolute; top: 9px; height: 22px; border-radius: 6px; border: 0; padding: 0; cursor: pointer; min-width: 8px; transition: filter .2s, transform .25s var(--ease), box-shadow .25s; }
+.g-bar:hover, .g-bar:focus-visible { transform: scaleY(1.18); filter: brightness(1.08); }
+.g-bar[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--paper), 0 0 0 4px var(--ink); }
+.g-bar.now::after { content: ""; position: absolute; right: -4px; top: 50%; width: 8px; height: 8px; margin-top: -4px; border-radius: 50%; background: inherit; box-shadow: 0 0 0 3px color-mix(in srgb, var(--paper) 70%, transparent); }
+.g-bar::before { content: ""; position: absolute; inset: -9px -12px; }   /* bigger tap target than the drawn bar, for short roles on phones */
+.g-today { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--ink); opacity: .5; }
+.g-note { margin-top: 12px; font-size: 12.5px; color: var(--ink-3); }
+.c-work { background: var(--s1); } .c-edu { background: var(--s2); } .c-vol { background: var(--s3); }
+
+.detail { display: grid; gap: 22px; margin-top: 16px; }
+.role { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 20px; scroll-margin-top: 90px; }
+@media (max-width: 860px) { .role { grid-template-columns: minmax(0, 1fr); } }
+.role .d-main { transition: box-shadow .3s, border-color .3s; }
+.role.sel .d-main { border-color: var(--cat); box-shadow: 0 0 0 2px var(--cat), 0 18px 40px -24px rgba(30, 18, 45, .45); }
+.d-main { padding: 26px; }
+.d-main .when { font: 500 12px/1 var(--mono); color: var(--ink-2); }
+.d-main h2 { margin-top: 10px; }
+.d-main .org { color: var(--ink-2); margin-top: 4px; }
+.d-main ul { margin: 16px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+.d-main li { padding-left: 26px; position: relative; }
+.d-main li::before { content: ""; position: absolute; left: 4px; top: .55em; width: 10px; height: 10px; border-radius: 3px; background: var(--cat, var(--accent)); }
+.d-main .links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.d-side { display: grid; gap: 12px; align-content: start; }
+.d-side .stat .v { font-size: 40px; }
+.swap-in { animation: swapin .45s var(--ease); }
+@keyframes swapin { from { transform: translateY(12px); opacity: .2; } }
+.steps { display: flex; gap: 8px; margin-top: 14px; }
+</style>
+</head>
+<body data-page="experience.html">
+<header id="site-bar"></header>
+<main class="wrap">
+  <div class="page-head">
+    <div class="eyebrow reveal">§1 · Training history</div>
+    <h1 class="reveal d1">Experience</h1>
+    <p class="lede reveal d2">From internships in 2020 to shipping production AI in Melbourne. Every role is below; <b>click a bar</b> to jump to it. Degrees are on the <a href="education.html">Education</a> page.</p>
+  </div>
+
+  <div class="card gantt reveal" id="gantt">
+    <div class="g-top">
+      <div class="g-filters" role="group" aria-label="Show categories">
+        <button class="chip" type="button" data-cat="work" aria-pressed="true"><i class="c-work"></i>Work</button>
+        <button class="chip" type="button" data-cat="vol" aria-pressed="true"><i class="c-vol"></i>Leadership & volunteering</button>
+      </div>
+      <div class="steps"><button class="btn" type="button" id="prev" aria-label="Previous role">←</button><button class="btn" type="button" id="nextR" aria-label="Next role">→</button></div>
+    </div>
+    <div class="g-grid" id="ggrid"></div>
+    <p class="g-note">Bars run from start to end month; a dot on the end means the role is ongoing.</p>
+  </div>
+
+  <div class="detail" id="detail" aria-live="polite"></div>
+
+  <section class="block" aria-labelledby="lead-photos">
+    <div class="sec-title"><div><div class="eyebrow">Leadership in action</div><h2 id="lead-photos" style="margin-top:10px">Out with the AusWise community</h2><p>Leading the data team and helping run events for international students and migrant communities.</p></div></div>
+    <div class="photo-strip">
+      <figure class="polaroid wide reveal" style="--r:-2.5deg" tabindex="0" role="button" aria-label="Open photo: Safe and Sound fundraiser"><span class="tape"></span><img src="assets/photos/safesound.webp" alt="Large group on stage at an AusWise and We Are Australia event" loading="lazy" style="--ar:16/9"><figcaption>Safe and Sound fundraiser</figcaption></figure>
+      <figure class="polaroid wide reveal d1" style="--r:2deg" tabindex="0" role="button" aria-label="Open photo: AusWise community event"><span class="tape"></span><img src="assets/photos/auswise.webp" alt="Group photo beside the AusWise banner" loading="lazy" style="--ar:4/3"><figcaption>AusWise community event</figcaption></figure>
+      <figure class="polaroid reveal d2" tabindex="0" role="button" aria-label="Open photo: coffee catch-up"><span class="tape"></span><img src="assets/photos/coffee.webp" alt="Gopika and colleagues at a café table with coffees" loading="lazy" style="--ar:3/4"><figcaption>coffee catch-up ☕</figcaption></figure>
+    </div>
+  </section>
+
+  <a class="next" href="education.html"><div><small>NEXT · 2 / 7</small><b>Education</b></div><span class="go">→</span></a>
+</main>
+<footer id="site-foot"></footer>
+<script src="assets/site.js?v=29"></script>
+<script src="assets/rag-core.js?v=29"></script>
+<script src="assets/buddy.js?v=29"></script>
+<script>
+(() => {
+  const GJ = window.GJ;
+  const NOW = 2026 + 9.3 / 12, START = 2020, END = 2027;      // Oct 2026
+  const ym = (y, m) => y + (m - 1) / 12;
+  const ROLES = [
+    { id: 'timeless', cat: 'work', title: 'AI Specialist', org: 'Timeless Tributes AI · Melbourne', from: ym(2026, 4), to: ym(2026, 10), when: 'Apr – Sept 2026',
+      points: ['Built and shipped AI-powered web tools for funeral directors, and led operations in a company-wide sprint making AI photo and video restoration the core product differentiator', 'Built PhotoAlchemy, a production photo restoration and animation tool (React, Vite, Replicate API, GFPGAN, Real-ESRGAN, Nano Banana)', 'Built LiveFlow, a funeral-director-facing PWA for livestreamed ceremony playback', 'Built an AI video-generation prompt and credit-efficiency system spanning Runway, OpenArt, Kling and ElevenLabs', 'Coordinated architecture with an external development agency through a TypeScript monorepo contract layer', 'Ran QA testing, wrote SOPs and production trackers, and drafted outreach to around 150 independent funeral directors', 'Researched AI-authenticity and backlash concerns specific to the memorial industry to inform product positioning'],
+      stats: [['2', 'production AI tools shipped'], ['4', 'video AI platforms optimised'], ['~150', 'funeral directors in outreach']], links: [['projects.html#photoalchemy', 'PhotoAlchemy project →']] },
+    { id: 'auswise', cat: 'vol', title: 'Data Project Lead', org: 'AusWise (volunteer) · Melbourne', from: ym(2026, 3), to: NOW, now: true, when: 'Mar 2026 – now',
+      points: ['Promoted from Data Project Coordinator to Data Project Lead', 'Built a social media analytics pipeline (Instagram scraping via Apify, XGBoost and SHAP, BERTopic, Groq LLM summarisation) producing branded performance reports', 'Manage a 7-member data team, working closely across HR, employability, public health, marketing and project management', 'Manage award-submission documentation, and planned VIP invitations for the Safe and Sound fundraising event at Library at The Dock', 'Organised the AusWise Walkathon 2026 (370+ registrants), sorting participants into five mascot-based career teams and coordinating mentors and volunteers'],
+      stats: [['7', 'people on my data team'], ['370+', 'Walkathon registrants'], ['5', 'career teams formed']], links: [['projects.html#auswise', 'Analytics pipeline →']] },
+    { id: 'redcross', cat: 'vol', title: 'Retail Volunteer', org: 'Australian Red Cross · Collingwood', from: ym(2025, 3), to: NOW, now: true, when: 'Mar 2025 – now',
+      points: ['Retail volunteering: shop operations and customer service'], stats: [['1.5+', 'years volunteering']], links: [] },
+    { id: 'verzeo-ds', cat: 'work', title: 'Data Science Intern', org: 'Verzeo', from: ym(2020, 11), to: ym(2021, 1), when: 'Nov – Dec 2020',
+      points: ['Data cleaning and visualisation in Python'], stats: [['2', 'months']], links: [] },
+    { id: 'verzeo-cy', cat: 'work', title: 'Cybersecurity Intern', org: 'Verzeo', from: ym(2020, 9), to: ym(2020, 11), when: 'Sept – Oct 2020',
+      points: ['Hands-on work with Kali Linux, Wireshark and Nmap'], stats: [['3', 'security tools']], links: [] },
+  ];
+  const CAT = { work: ['Work', 'var(--s1)'], edu: ['Education', 'var(--s2)'], vol: ['Leadership & volunteering', 'var(--s3)'] };
+  const pct = x => ((x - START) / (END - START)) * 100;
+
+  // build chart
+  const grid = document.getElementById('ggrid');
+  let html = '<div></div><div class="g-axis">' + Array.from({ length: END - START + 1 }, (_, i) => `<span style="left:${pct(START + i)}%">${START + i}</span>`).join('') + '</div>';
+  ROLES.forEach(r => {
+    html += `<div class="g-row" data-cat="${r.cat}"><div class="g-lab"><b>${r.title}</b><span>${r.org.split(' · ')[0]}</span></div>
+      <div class="g-track">${Array.from({ length: END - START + 1 }, (_, i) => `<i class="yr" style="left:${pct(START + i)}%"></i>`).join('')}
+      <span class="g-today" style="left:${pct(NOW)}%"></span>
+      <button class="g-bar c-${r.cat} grow${r.now ? ' now' : ''}" type="button" data-id="${r.id}" aria-pressed="false" aria-label="${r.title}, ${r.org}, ${r.when}" style="left:${pct(r.from)}%;width:${pct(r.to) - pct(r.from)}%"></button></div></div>`;
+  });
+  grid.innerHTML = html;
+  grid.querySelectorAll('.g-bar').forEach(b => {
+    const r = ROLES.find(x => x.id === b.dataset.id);
+    GJ.bindTip(b, `<b>${r.title}</b>${r.org}<div class="m">${r.when} · ${CAT[r.cat][0]}</div>`);
+    b.addEventListener('click', () => select(r.id, true));
+  });
+  GJ.watch(grid);
+
+  // filters
+  document.querySelectorAll('.g-filters .chip').forEach(c => c.addEventListener('click', () => {
+    const on = c.getAttribute('aria-pressed') !== 'true';
+    const active = [...document.querySelectorAll('.g-filters .chip[aria-pressed="true"]')];
+    if (!on && active.length === 1) { GJ.say('Keep at least one category'); return; }
+    c.setAttribute('aria-pressed', String(on));
+    grid.querySelectorAll(`.g-row[data-cat="${c.dataset.cat}"]`).forEach(row => row.hidden = !on);
+    document.querySelectorAll(`#detail .role[data-cat="${c.dataset.cat}"]`).forEach(card => card.hidden = !on);
+    if (!visible().some(r => r.id === sel)) select(visible()[0].id);
+  }));
+  const visible = () => ROLES.filter(r => !grid.querySelector(`.g-row[data-cat="${r.cat}"]`).hidden);
+
+  // every role as its own card; the chart's bars and the arrows jump to one and highlight it
+  const detail = document.getElementById('detail');
+  detail.innerHTML = ROLES.map(r => `<article class="role reveal" id="role-${r.id}" data-cat="${r.cat}" style="--cat:${CAT[r.cat][1]}">
+      <div class="card d-main">
+        <div class="when">${r.when} · ${CAT[r.cat][0]}</div><h2>${r.title}</h2><div class="org">${r.org}</div>
+        <ul>${r.points.map(p => `<li>${p}</li>`).join('')}</ul>
+        ${r.links.length ? `<div class="links">${r.links.map(([h, l]) => `<a class="btn" href="${h}"${h.startsWith('http') ? ' target="_blank" rel="noopener"' : ''}>${l}</a>`).join('')}</div>` : ''}
+      </div>
+      <div class="d-side">${r.stats.map(([v, k]) => `<div class="stat"><div class="v">${v}</div><div class="k">${k}</div></div>`).join('')}</div>
+    </article>`).join('');
+  GJ.watch?.(detail);
+  let sel = null;
+  function select(id, scroll) {
+    sel = id;
+    grid.querySelectorAll('.g-bar').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.id === id)));
+    detail.querySelectorAll('.role').forEach(c => c.classList.toggle('sel', c.id === 'role-' + id));
+    if (scroll) document.getElementById('role-' + id).scrollIntoView({ behavior: GJ.reduce ? 'auto' : 'smooth', block: 'start' });
+  }
+  const step = d => { const v = visible(), i = v.findIndex(r => r.id === sel); select(v[(i + d + v.length) % v.length].id, true); };
+  document.getElementById('prev').addEventListener('click', () => step(-1));
+  document.getElementById('nextR').addEventListener('click', () => step(1));
+  select('timeless');
+})();
+</script>
+</body>
+</html>

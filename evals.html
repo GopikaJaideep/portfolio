@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Evals · Gopika Jaideep</title>
+<meta name="description" content="Evaluation results from Gopika Jaideep's projects as interactive charts: red-teaming, mutation testing, CI gates, accuracy and latency.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=Caveat:wght@600;700&display=swap">
+<script>try { const t = localStorage.getItem('gj-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
+<link rel="stylesheet" href="assets/site.css?v=29">
+<style>
+.board { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+@media (max-width: 900px) { .board { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.bt { text-align: left; padding: 16px; border-radius: 14px; border: 1px solid var(--rule); background: var(--sheet); color: var(--ink); cursor: pointer; display: grid; gap: 8px; transition: transform .3s var(--ease), border-color .2s, background .2s; min-width: 0; font: inherit; }
+.bt:hover { transform: translateY(-3px); border-color: var(--ink); }
+.bt[aria-selected="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.bt b { font: 800 19px/1.1 var(--display); }
+.bt .pass { font: 500 12px/1 var(--mono); color: var(--ok); }
+.bt[aria-selected="true"] .pass { color: var(--sage); }
+.bt .bars { display: flex; gap: 4px; }
+.bt .bars i { height: 6px; flex: 1; border-radius: 3px; background: var(--ok); transition: background .3s; }
+.bt[aria-selected="true"] .bars i { background: var(--sage); }
+.bt .bars i.run { background: var(--rule); }
+.runbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin: 16px 0 6px; }
+.runbar .st { font: 500 13px/1.3 var(--mono); color: var(--ink-2); }
+.runbar .st b { color: var(--ok); }
+
+.panel { display: grid; gap: 16px; margin-top: 18px; }
+.panel[hidden] { display: none; }
+.panel.in-swap { animation: pin .45s var(--ease); }
+@keyframes pin { from { transform: translateY(14px); opacity: .2; } }
+.ph { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 10px 20px; }
+.ph h2 { font-size: clamp(32px, 4vw, 48px); }
+.ph .links { display: flex; flex-wrap: wrap; gap: 8px; }
+.ph .links .btn { padding: 10px 14px; font-size: 13px; }
+.row2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.row3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 860px) { .row2, .row3 { grid-template-columns: minmax(0, 1fr); } }
+.viz h3 { margin-bottom: 4px; }
+.viz .cap { margin: 0 0 14px; font-size: 13.5px; color: var(--ink-2); }
+.viz .act { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.viz .act .note { font: 500 12px/1.3 var(--mono); color: var(--ink-2); }
+.hero-n { font: 800 clamp(56px, 8vw, 96px)/.9 var(--display); letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
+.hero-n small { font-size: .42em; color: var(--accent); }
+
+/* waffle */
+.waffle { display: grid; gap: 3px; }
+.waffle i { aspect-ratio: 1; border-radius: 2px; background: var(--ok); transition: background .25s, transform .25s; }
+.waffle i.pending { background: var(--sheet-2); }
+.waffle i.bad { background: var(--signal); }
+.wlegend { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 10px; font-size: 13px; color: var(--ink-2); }
+.wlegend span { display: inline-flex; align-items: center; gap: 6px; }
+.wlegend i { width: 11px; height: 11px; border-radius: 2px; display: inline-block; }
+
+/* split bar */
+.split { display: flex; gap: 2px; height: 46px; border-radius: 10px; overflow: hidden; }
+.split div { display: flex; align-items: center; padding-inline: 12px; color: #fff; font: 600 13px/1.2 var(--body); white-space: nowrap; overflow: hidden; }
+.split .tr { background: var(--s1); }
+.split .te { background: var(--s2); }
+.split-l { display: flex; justify-content: space-between; margin-top: 8px; font: 500 12px/1 var(--mono); color: var(--ink-2); }
+
+/* prompt dots */
+.pdots { display: grid; grid-template-columns: repeat(25, minmax(0, 1fr)); gap: 5px; }
+.pdots i { aspect-ratio: 1; border-radius: 50%; background: var(--sheet-2); border: 1.5px solid var(--rule); transition: all .3s var(--ease); }
+.pdots i.scan { background: var(--mauve); border-color: var(--mauve); transform: scale(1.15); }
+.pdots i.pick { background: var(--accent); border-color: var(--accent); transform: scale(1.45); box-shadow: 0 0 0 4px var(--accent-soft); }
+
+/* mutants */
+.mut { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+@media (max-width: 640px) { .mut { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.mc { padding: 16px; border-radius: 12px; border: 1.5px solid var(--rule); background: var(--paper); display: grid; gap: 8px; min-height: 120px; align-content: space-between; transition: border-color .3s, background .3s; }
+.mc b { font: 700 15px/1.2 var(--body); }
+.mc .s { font: 500 12px/1.3 var(--mono); color: var(--ink-2); }
+.mc.inj { border-color: var(--signal); background: color-mix(in srgb, var(--signal) 8%, var(--paper)); }
+.mc.inj .s { color: var(--signal); }
+.mc.ok { border-color: var(--ok); background: var(--sage-soft); }
+.mc.ok .s { color: var(--ok); }
+
+/* CI gate */
+.ci { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; align-items: stretch; }
+.ci > div { padding: 14px; border-radius: 12px; border: 1.5px solid var(--rule); background: var(--paper); text-align: center; display: grid; gap: 6px; align-content: center; transition: all .3s; }
+.ci b { font: 700 14px/1.2 var(--body); }
+.ci span { font: 500 12px/1.3 var(--mono); color: var(--ink-2); }
+.ci .gate.ok { border-color: var(--ok); background: var(--sage-soft); }
+.ci .gate.no { border-color: var(--signal); background: color-mix(in srgb, var(--signal) 8%, var(--paper)); }
+.ci .gate.no span { color: var(--signal); }
+.ci .merge.no { opacity: .45; }
+.scen { display: grid; gap: 10px; }
+.sc { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 12px; border: 1.5px solid var(--rule); background: var(--paper); cursor: pointer; text-align: left; font: inherit; color: inherit; transition: all .3s; width: 100%; }
+.sc:hover { border-color: var(--ink); }
+.sc .s { font: 500 12px/1.3 var(--mono); color: var(--ink-2); white-space: nowrap; }
+.sc.bug { border-color: var(--signal); } .sc.bug .s { color: var(--signal); }
+.sc.fixed { border-color: var(--ok); background: var(--sage-soft); } .sc.fixed .s { color: var(--ok); }
+
+/* horizontal bars */
+.hb { display: grid; gap: 12px; }
+.hb .r { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 12px; align-items: center; }
+.hb .r > span { font-size: 13.5px; color: var(--ink-2); }
+.hb .t { position: relative; height: 34px; border-radius: 8px; background: var(--sheet-2); }
+.hb .f { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 4px 8px 8px 4px; display: flex; align-items: center; justify-content: flex-end; padding-right: 10px; color: #fff; font: 600 12.5px/1 var(--mono); min-width: 54px; }
+.hb .f.b { background: var(--sage); color: #1d2a20; } .hb .f.a { background: var(--accent); color: var(--paper); }
+</style>
+</head>
+<body data-page="evals.html">
+<header id="site-bar"></header>
+<main class="wrap">
+  <div class="page-head">
+    <span class="sticker float-sticker" style="--s:118px;--r:7deg;right:3%;top:44px" tabindex="0" role="button" data-full="assets/photos/pier.webp" aria-label="Open photo: 0% unsafe, 100% happy"><img src="assets/photos/pier-face.webp" alt="Gopika smiling on a pier by the water" width="360" height="360"><span class="lbl">0% unsafe, 100% happy</span></span>
+    <div class="eyebrow reveal">§5 · Evaluation results</div>
+    <h1 class="reveal d1">Evals</h1>
+    <p class="lede reveal d2">Every number here comes from my own projects. <b>Pick a project</b>, then press its buttons to watch the evaluation run.</p>
+  </div>
+
+  <div class="board reveal d3" role="tablist" aria-label="Projects" id="board"></div>
+  <div class="runbar">
+    <span class="st" id="suiteSt">Suite status: <b>10 / 10 passing</b> across 5 projects</span>
+    <button class="btn solid magnetic" type="button" id="runAll">▶ Run full eval suite</button>
+  </div>
+
+  <!-- CareWise -->
+  <section class="panel" id="p-carewise" role="tabpanel" aria-labelledby="t-carewise">
+    <div class="ph"><h2>CareWise</h2><div class="links"><a class="btn" href="projects.html#carewise">Project</a><a class="btn" href="https://carewise-aibuddy.vercel.app/" target="_blank" rel="noopener">Live app ↗</a><a class="btn" href="https://github.com/GopikaJaideep/CareWise" target="_blank" rel="noopener">Repo ↗</a></div></div>
+    <div class="row2">
+      <div class="card viz">
+        <h3>Regression gate in CI</h3><p class="cap">Crisis-detection and retrieval evals run on every pull request. A failing eval blocks the merge.</p>
+        <div class="ci"><div><b>Pull request</b><span id="ciPR">retrieval tweak</span></div><div class="gate ok" id="ciGate"><b>39+ tests</b><span id="ciRes">✓ all pass</span></div><div class="merge" id="ciMerge"><b>Merge</b><span id="ciM">allowed</span></div></div>
+        <div class="act"><button class="btn solid" type="button" id="ciRand">🎲 Open a random PR</button><button class="btn" type="button" id="ciBad">Break crisis detection</button><button class="btn" type="button" id="ciGood">Open a safe PR</button></div>
+        <div class="act"><span class="note" id="ciTally">0 PRs · 0 merged · 0 blocked</span></div>
+      </div>
+      <div class="card viz">
+        <h3>Degraded-state testing</h3><p class="cap">I test what happens when parts fail. Click each scenario to see what it found.</p>
+        <div class="scen">
+          <button class="sc" type="button" data-step="0"><span>AI layer is down</span><span class="s">untested</span></button>
+          <button class="sc" type="button" data-step="0"><span>One message carries several requests</span><span class="s">untested</span></button>
+        </div>
+        <div class="act"><span class="note" id="scNote">2 production bugs found and fixed this way</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TraceAI -->
+  <section class="panel" id="p-traceai" role="tabpanel" aria-labelledby="t-traceai" hidden>
+    <div class="ph"><h2>TraceAI</h2><div class="links"><a class="btn" href="projects.html#traceai">Project</a><a class="btn" href="https://gopikajaideep.github.io/TraceAI/" target="_blank" rel="noopener">Demo ↗</a><a class="btn" href="https://github.com/GopikaJaideep/TraceAI" target="_blank" rel="noopener">Repo ↗</a></div></div>
+    <div class="card viz">
+      <h3>Mutation testing on safety controls</h3><p class="cap">The harness deliberately breaks each safety control. The test suite has to notice every time.</p>
+      <div class="mut" id="mut">
+        <div class="mc"><b>Access gating</b><span class="s">intact</span></div>
+        <div class="mc"><b>Attestation</b><span class="s">intact</span></div>
+        <div class="mc"><b>Honeypot</b><span class="s">intact</span></div>
+        <div class="mc"><b>Audit chain</b><span class="s">intact</span></div>
+      </div>
+      <div class="act"><button class="btn solid" type="button" id="mutGo">Inject mutants</button><span class="note" id="mutNote">Result on record: 4 / 4 caught by the 48-test suite</span></div>
+    </div>
+    <div class="card viz">
+      <h3>48-test suite</h3><p class="cap">One square per test, covering the fusion engine and the safety controls.</p>
+      <div class="waffle" id="w48" style="grid-template-columns: repeat(24, minmax(0, 1fr)); max-width: 640px"></div>
+    </div>
+  </section>
+
+  <!-- Quitory -->
+  <section class="panel" id="p-quitory" role="tabpanel" aria-labelledby="t-quitory" hidden>
+    <div class="ph"><h2>Quitory</h2><div class="links"><a class="btn" href="projects.html#quitory">Project</a><a class="btn" href="https://github.com/MinhQuan-Tran/FIT5120-Main-Frontend" target="_blank" rel="noopener">Frontend repo ↗</a></div></div>
+    <div class="row2">
+      <div class="card viz">
+        <h3>Red-team: 500+ adversarial queries</h3><p class="cap">Each square is one tested query. Sage means the reply was safe.</p>
+        <div class="waffle" id="w500" style="grid-template-columns: repeat(25, minmax(0, 1fr))"></div>
+        <div class="wlegend"><span><i style="background:var(--ok)"></i>safe · <b id="safeN">500</b></span><span><i style="background:var(--signal)"></i>unsafe · <b>0</b></span><span><i style="background:var(--sheet-2)"></i>not yet run</span></div>
+        <div class="act"><button class="btn" type="button" id="rtGo">Replay red-team</button><span class="note">500 shown; 500+ were tested</span></div>
+      </div>
+      <div class="card viz">
+        <h3>Relevance vs a GPT-4 baseline</h3><p class="cap">Embedding-similarity relevance on the held-out test split.</p>
+        <div class="hero-n"><span data-count="38" data-pre="+">+38</span><small> pp</small></div>
+        <p class="cap" style="margin-top:12px">Measured once, on data the prompt was never tuned on.</p>
+        <h3 style="margin-top:18px">How the 2,500 examples were split</h3>
+        <div class="split" style="margin-top:12px"><div class="tr grow" style="flex:75">Train · 1,875</div><div class="te grow" style="flex:25">Test · 625</div></div>
+        <div class="split-l"><span>75% · prompt selection</span><span>25% · held out</span></div>
+      </div>
+    </div>
+    <div class="card viz">
+      <h3>Prompt selection: best of 25</h3><p class="cap">25 prompt variants were scored on the training split only. One went forward to the held-out test. (Which dot wins is illustrative.)</p>
+      <div class="pdots" id="pdots"></div>
+      <div class="act"><button class="btn" type="button" id="pGo">Run selection</button><span class="note" id="pNote">25 variants · 1 selected</span></div>
+    </div>
+  </section>
+
+  <!-- ParkingSpy -->
+  <section class="panel" id="p-parkingspy" role="tabpanel" aria-labelledby="t-parkingspy" hidden>
+    <div class="ph"><h2>ParkingSpy</h2><div class="links"><a class="btn" href="projects.html#parkingspy">Project</a></div></div>
+    <div class="row2">
+      <div class="card viz">
+        <h3>Detection latency</h3><p class="cap">Time from a car parking to the system knowing about it.</p>
+        <div class="hb">
+          <div class="r"><span>Before</span><div class="t"><div class="f b grow" style="width:100%" id="lb">~8 min</div></div></div>
+          <div class="r"><span>After</span><div class="t"><div class="f a grow" style="width:6.25%" id="la">&lt;30 s</div></div></div>
+        </div>
+        <div class="act"><span class="note">Bars to scale: 480 s vs 30 s, about 16× faster</span></div>
+      </div>
+      <div class="card viz">
+        <h3>Classification accuracy</h3><p class="cap">Random Forest over pipelines from 6 live data sources.</p>
+        <div class="meter"><div class="row"><span>Random Forest</span><b><span data-count="94.2">94.2</span>%</b></div><div class="track"><div class="fill grow" style="width:94.2%"></div></div><div class="note">0% to 100%</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NIDS -->
+  <section class="panel" id="p-nids" role="tabpanel" aria-labelledby="t-nids" hidden>
+    <div class="ph"><h2>Intrusion detection</h2><div class="links"><a class="btn" href="projects.html#nids">Project</a></div></div>
+    <div class="row2">
+      <div class="card viz">
+        <h3>Accuracy on NSL-KDD</h3><p class="cap">Random Forest, on a random 70/30 split.</p>
+        <div class="meter"><div class="row"><span>Random Forest</span><b><span data-count="99.9">99.9</span>%</b></div><div class="track"><div class="fill grow" style="width:99.9%"></div></div><div class="note">A random split can flatter accuracy, so I report which split was used.</div></div>
+      </div>
+      <div class="card viz">
+        <h3>Models compared</h3><p class="cap">Three model families on the same data; the LSTM became a live web demo tested against simulated MQTT attacks.</p>
+        <div class="metrics" style="display:flex;flex-wrap:wrap;gap:8px"><span class="tag ok"><span class="dot"></span>Random Forest · 99.9%</span><span class="tag">SVM · compared</span><span class="tag">LSTM · web demo</span></div>
+      </div>
+    </div>
+  </section>
+
+  <a class="next" href="agent.html"><div><small>NEXT · 6 / 7</small><b>Try the RAG agent</b></div><span class="go">→</span></a>
+</main>
+<footer id="site-foot"></footer>
+<script src="assets/site.js?v=29"></script>
+<script src="assets/rag-core.js?v=29"></script>
+<script src="assets/buddy.js?v=29"></script>
+<script>
+(() => {
+  const GJ = window.GJ, $ = id => document.getElementById(id), wait = ms => new Promise(r => setTimeout(r, GJ.reduce ? 0 : ms));
+  const PROJ = [['carewise', 'CareWise', 2], ['traceai', 'TraceAI', 2], ['quitory', 'Quitory', 3], ['parkingspy', 'ParkingSpy', 2], ['nids', 'Intrusion detection', 1]];
+
+  // ---------- scoreboard tabs ----------
+  const board = $('board');
+  board.innerHTML = PROJ.map(([id, name, n]) => `<button class="bt" type="button" role="tab" id="t-${id}" aria-controls="p-${id}" aria-selected="false" data-id="${id}">
+    <b>${name}</b><span class="bars">${'<i></i>'.repeat(n)}</span><span class="pass">✓ ${n} / ${n} pass</span></button>`).join('');
+  function show(id, push) {
+    board.querySelectorAll('.bt').forEach(b => b.setAttribute('aria-selected', String(b.dataset.id === id)));
+    PROJ.forEach(([pid]) => { const p = $('p-' + pid); const on = pid === id; p.hidden = !on; if (on) { p.classList.remove('in-swap'); void p.offsetWidth; p.classList.add('in-swap'); GJ.watch(p); } });
+    if (push) history.replaceState(null, '', '#' + id);
+  }
+  board.addEventListener('click', e => { const b = e.target.closest('.bt'); if (b) show(b.dataset.id, true); });
+  board.addEventListener('keydown', e => {
+    if (!['ArrowRight', 'ArrowLeft'].includes(e.key)) return;
+    const ids = PROJ.map(p => p[0]), cur = ids.indexOf(board.querySelector('[aria-selected="true"]').dataset.id);
+    const nx = ids[(cur + (e.key === 'ArrowRight' ? 1 : -1) + ids.length) % ids.length]; show(nx, true); $('t-' + nx).focus();
+  });
+  const start = location.hash.slice(1);
+  show(PROJ.some(p => p[0] === start) ? start : 'carewise');
+
+  // ---------- CareWise: CI gate ----------
+  const gate = $('ciGate'), merge = $('ciMerge');
+  // random PRs: some are safe, some quietly break one eval
+  const PRS = [
+    ['refactor agent handoffs', 'crisis eval'], ['tune BM25 weights', 'retrieval eval'], ['shorter system prompt', 'crisis eval'],
+    ['new citation formatter', 'citation check'], ['swap embedding model', 'retrieval eval'], ['faster intent router', 'routing eval'],
+    ['update medication agent', 'safety eval'], ['add appointment reminders', null], ['fix typo in UI copy', null], ['bump FastAPI version', null],
+  ];
+  let prs = 0, merged = 0, blockedPR = 0, busy = false;
+  const ci = async (title, broken) => {
+    if (busy) return; busy = true; GJ.think?.(true);
+    $('ciPR').textContent = title;
+    gate.className = 'gate'; $('ciRes').textContent = 'running 39+ tests…'; merge.className = 'merge'; $('ciM').textContent = 'waiting';
+    await wait(500 + Math.random() * 900);
+    const bad = !!broken;
+    gate.className = 'gate ' + (bad ? 'no' : 'ok'); $('ciRes').textContent = bad ? `✕ ${broken} failed` : '✓ all pass';
+    merge.className = 'merge' + (bad ? ' no' : ''); $('ciM').textContent = bad ? 'blocked' : 'allowed';
+    prs++; bad ? blockedPR++ : merged++;
+    $('ciTally').textContent = `${prs} PR${prs > 1 ? 's' : ''} · ${merged} merged · ${blockedPR} blocked`;
+    GJ.say(bad ? `Merge blocked: ${broken} failed` : 'Merge allowed: all evals pass');
+    busy = false; GJ.think?.(false);
+  };
+  $('ciRand').addEventListener('click', () => {
+    const [title, breaks] = PRS[Math.floor(Math.random() * PRS.length)];
+    // a "risky" PR only breaks something some of the time, so outcomes stay unpredictable
+    ci(title, breaks && Math.random() < 0.6 ? breaks : null);
+  });
+  $('ciBad').addEventListener('click', () => ci('weakens crisis rules', 'crisis eval'));
+  $('ciGood').addEventListener('click', () => ci('improves retrieval', null));
+  document.querySelectorAll('.sc').forEach(sc => sc.addEventListener('click', () => {
+    const s = +sc.dataset.step, lab = sc.querySelector('.s');
+    if (s === 0) { sc.className = 'sc bug'; lab.textContent = 'bug found'; sc.dataset.step = 1; }
+    else { sc.className = 'sc fixed'; lab.textContent = '✓ fixed in production'; sc.dataset.step = 2; }
+  }));
+
+  // ---------- TraceAI ----------
+  const mcs = [...document.querySelectorAll('#mut .mc')];
+  $('mutGo').addEventListener('click', async () => {
+    $('mutGo').disabled = true; GJ.think?.(true);
+    for (const m of mcs) { m.className = 'mc inj'; m.querySelector('.s').textContent = 'mutant injected'; await wait(350); }
+    for (const m of mcs) { await wait(450); m.className = 'mc ok'; m.querySelector('.s').textContent = '✓ caught by tests'; }
+    $('mutNote').textContent = '4 / 4 mutants caught · safety controls verified'; $('mutGo').disabled = false; $('mutGo').textContent = 'Inject again'; GJ.think?.(false);
+  });
+  const w48 = $('w48'); w48.innerHTML = '<i></i>'.repeat(48);
+  [...w48.children].forEach((sq, i) => GJ.bindTip(sq, `<b>Test ${i + 1} of 48</b><span class="m">✓ passing</span>`));
+
+  // ---------- Quitory ----------
+  const w500 = $('w500'); w500.innerHTML = '<i></i>'.repeat(500);
+  const sq500 = [...w500.children];
+  sq500.forEach((sq, i) => { if (i % 25 === 0) GJ.bindTip(sq, `<b>Queries ${i + 1}–${i + 25}</b><span class="m">25 adversarial prompts · all safe</span>`); });
+  async function redteam() {
+    $('rtGo').disabled = true; GJ.think?.(true); sq500.forEach(s => s.className = 'pending'); $('safeN').textContent = '0';
+    for (let i = 0; i < 500; i += 10) { for (let j = i; j < i + 10; j++) sq500[j].className = ''; $('safeN').textContent = i + 10; await wait(22); }
+    $('rtGo').disabled = false; GJ.think?.(false);
+  }
+  $('rtGo').addEventListener('click', redteam);
+  const pd = $('pdots'); pd.innerHTML = '<i></i>'.repeat(25);
+  const pis = [...pd.children], PICK = 17;
+  pis.forEach(d => GJ.bindTip(d, () => `<b>${d.classList.contains('pick') ? 'Selected variant' : 'Prompt variant'}</b><span class="m">${d.classList.contains('pick') ? 'went forward to the held-out test' : 'scored on the training split'}</span>`));
+  async function pick() {
+    $('pGo').disabled = true; GJ.think?.(true); pis.forEach(d => d.className = '');
+    for (let i = 0; i < 25; i++) { pis[i].className = 'scan'; await wait(70); pis[i].className = ''; }
+    pis[PICK].className = 'pick'; $('pNote').textContent = 'best variant selected · then tested once on the 625 held-out examples'; $('pGo').disabled = false; GJ.think?.(false);
+  }
+  $('pGo').addEventListener('click', pick);
+  pis[PICK].className = 'pick';
+  GJ.bindTip($('lb'), '<b>Before</b><span class="m">about 8 minutes · 480 s</span>');
+  GJ.bindTip($('la'), '<b>After</b><span class="m">under 30 seconds</span>');
+
+  // ---------- run the whole suite ----------
+  $('runAll').addEventListener('click', async () => {
+    const b = $('runAll'); b.disabled = true; GJ.think?.(true);
+    const bars = [...board.querySelectorAll('.bars i')], tot = bars.length;
+    bars.forEach(i => i.classList.add('run'));
+    $('suiteSt').innerHTML = 'Suite status: running…';
+    for (let k = 0; k < tot; k++) { await wait(160); bars[k].classList.remove('run'); $('suiteSt').innerHTML = `Suite status: <b>${k + 1} / ${tot} passing</b>`; }
+    $('suiteSt').innerHTML = `Suite status: <b>${tot} / ${tot} passing</b> across 5 projects · just now`;
+    GJ.say(`${tot} / ${tot} evals passing`); b.disabled = false; b.textContent = '▶ Run again'; GJ.think?.(false);
+    const cur = board.querySelector('[aria-selected="true"]').dataset.id;
+    if (cur === 'quitory') redteam(); else if (cur === 'traceai') $('mutGo').click(); else if (cur === 'carewise') $('ciRand').click();
+  });
+})();
+</script>
+</body>
+</html>

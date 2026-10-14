@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RAG Agent · Gopika Jaideep</title>
+<meta name="description" content="Ask Gopika Jaideep's portfolio a question: an ML router, hybrid retrieval, an LLM agent and a citation verifier, visualised live.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=Caveat:wght@600;700&display=swap">
+<script>try { const t = localStorage.getItem('gj-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
+<link rel="stylesheet" href="assets/site.css?v=29">
+<style>
+.mode { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 14px; font-size: 13px; color: var(--ink-2); }
+.mode .pill { font: 500 12px/1 var(--mono); padding: 7px 10px; border-radius: 999px; border: 1px solid var(--rule); background: var(--sheet); color: var(--ink); }
+.mode .pill.on { color: var(--ok); border-color: var(--ok); background: var(--sage-soft); }
+.askbox { display: flex; gap: 8px; }
+.askbox input { flex: 1; min-width: 0; padding: 15px 16px; border-radius: 12px; border: 1.5px solid var(--rule); background: var(--sheet); color: var(--ink); font: 400 16px/1.3 var(--body); transition: border-color .2s, box-shadow .2s; }
+.askbox input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+.sugg { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+
+/* pipeline */
+.pipe { margin-top: 22px; padding: 18px; }
+.pipe svg { display: block; width: 100%; height: auto; }
+.st rect { fill: var(--paper); stroke: var(--rule); stroke-width: 1.5; transition: fill .3s, stroke .3s; }
+.st text { font: 600 13px var(--body); fill: var(--ink); }
+.st .sub { font: 400 10.5px var(--mono); fill: var(--ink-2); }
+.st.active rect { stroke: var(--accent); fill: var(--accent-soft); }
+.st.done rect { stroke: var(--ok); fill: var(--sage-soft); }
+.st.fail rect { stroke: var(--signal); fill: color-mix(in srgb, var(--signal) 10%, var(--paper)); }
+.st.skip { opacity: .4; }
+.wire { stroke: var(--rule); stroke-width: 2; fill: none; }
+.wire.lit { stroke: var(--accent); stroke-dasharray: 6 6; animation: flow .6s linear infinite; }
+@keyframes flow { to { stroke-dashoffset: -12; } }
+@media (prefers-reduced-motion: reduce) { .wire.lit { animation: none; } }
+
+.out { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 16px; margin-top: 16px; align-items: start; }
+@media (max-width: 920px) { .out { grid-template-columns: minmax(0, 1fr); } }
+.out > * { min-width: 0; }
+.answer { font-size: 15.5px; line-height: 1.7; }
+.answer .lbl { display: block; margin-bottom: 8px; font: 500 11px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+.answer.refuse { border-color: color-mix(in srgb, var(--signal) 50%, var(--rule)); }
+.answer.refuse .lbl { color: var(--signal); }
+.answer sup a { font: 600 11px/1 var(--mono); text-decoration: none; margin-left: 2px; }
+.answer .srcs { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--rule); }
+.answer .srcs a { font: 500 12px/1 var(--mono); text-decoration: none; padding: 7px 9px; border-radius: 8px; border: 1px solid var(--rule); background: var(--paper); }
+.answer .srcs a:hover { border-color: var(--accent); }
+.answer .typing::after { content: "▍"; animation: blink 1s steps(1) infinite; color: var(--accent); }
+@keyframes blink { 50% { opacity: 0; } }
+.side { display: grid; gap: 16px; }
+.bars { display: grid; gap: 8px; }
+.bars .r { display: grid; grid-template-columns: 92px minmax(0, 1fr) 46px; gap: 10px; align-items: center; font-size: 12.5px; }
+.bars .r > span:first-child { color: var(--ink-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--mono); }
+.bars .tr { height: 14px; border-radius: 999px; background: var(--sheet-2); overflow: hidden; }
+.bars .fl { height: 100%; width: 0; border-radius: 999px; background: var(--mauve); transition: width .7s var(--ease); }
+.bars .r.top .fl { background: var(--accent); }
+.bars .r.off .fl { background: var(--signal); }
+.bars .v { font: 600 12px/1 var(--mono); text-align: right; font-variant-numeric: tabular-nums; }
+.viz h3 { font-size: 16px; margin-bottom: 4px; }
+.viz .cap { margin: 0 0 12px; font-size: 12.5px; color: var(--ink-2); }
+details.trace { margin-top: 16px; }
+details.trace summary { cursor: pointer; font: 500 13px/1 var(--mono); color: var(--ink-2); padding: 10px 0; }
+.term pre { min-height: 160px; max-height: 360px; overflow-y: auto; }
+@media (max-width: 760px) { .pipe { overflow-x: auto; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; } .pipe svg { min-width: 720px; } }   /* readable on phones: swipe the diagram sideways */
+</style>
+</head>
+<body data-page="agent.html">
+<header id="site-bar"></header>
+<main class="wrap">
+  <div class="page-head">
+    <span class="sticker float-sticker" style="--s:118px;--r:-6deg;right:3%;top:44px" tabindex="0" role="button" data-full="assets/photos/mall.webp" aria-label="Open photo: ask me anything!"><img src="assets/photos/mall-face.webp" alt="Smiling selfie of Gopika" width="360" height="360"><span class="lbl">ask me anything!</span></span>
+    <div class="eyebrow reveal">§6 · Inference playground</div>
+    <h1 class="reveal d1">Ask my RAG agent</h1>
+    <p class="lede reveal d2">Ask about my work. Watch an <b>ML router</b>, <b>hybrid retrieval</b>, an <b>LLM agent</b> and a <b>citation verifier</b> handle it, live.</p>
+  </div>
+
+  <div class="reveal d3">
+    <div class="mode"><span class="pill" id="modePill">checking for an LLM…</span><span id="modeNote"></span></div>
+    <form class="askbox" id="askForm" autocomplete="off">
+      <label class="sr" for="q">Ask a question about my work</label>
+      <input id="q" type="text" maxlength="200" placeholder="e.g. How do you test AI safety?">
+      <button class="btn solid magnetic" type="submit" id="askBtn">Ask <span class="arr">→</span></button>
+      <button class="btn" type="button" id="stopBtn" hidden>Stop</button>
+    </form>
+    <div class="sugg" id="sugg">
+      <button class="chip" type="button">What have you built with RAG?</button>
+      <button class="chip" type="button">How do you test AI safety?</button>
+      <button class="chip" type="button">Which ML models have you trained?</button>
+      <button class="chip" type="button">Have you led a team?</button>
+      <button class="chip" type="button">What's the best pizza in Melbourne?</button>
+    </div>
+  </div>
+
+  <div class="card pipe reveal">
+    <svg viewBox="0 0 1000 120" role="img" aria-label="Pipeline: router, guard, retrieve, agent, verify">
+      <path class="wire" id="w1" d="M180 60 H215"/><path class="wire" id="w2" d="M375 60 H410"/><path class="wire" id="w3" d="M570 60 H605"/><path class="wire" id="w4" d="M765 60 H800"/>
+      <g class="st" id="s-router"><rect x="20" y="20" width="160" height="80" rx="14"/><text x="100" y="56" text-anchor="middle">1 · Router</text><text class="sub" x="100" y="76" text-anchor="middle">naive Bayes (ML)</text></g>
+      <g class="st" id="s-guard"><rect x="215" y="20" width="160" height="80" rx="14"/><text x="295" y="56" text-anchor="middle">2 · Guard</text><text class="sub" x="295" y="76" text-anchor="middle">off-topic → refuse</text></g>
+      <g class="st" id="s-retrieve"><rect x="410" y="20" width="160" height="80" rx="14"/><text x="490" y="56" text-anchor="middle">3 · Retrieve</text><text class="sub" x="490" y="76" text-anchor="middle">BM25 + trigram · RRF</text></g>
+      <g class="st" id="s-agent"><rect x="605" y="20" width="160" height="80" rx="14"/><text x="685" y="56" text-anchor="middle">4 · Generate</text><text class="sub" x="685" y="76" text-anchor="middle" id="genSub">LLM agent + tool</text></g>
+      <g class="st" id="s-verify"><rect x="800" y="20" width="180" height="80" rx="14"/><text x="890" y="56" text-anchor="middle">5 · Verify</text><text class="sub" x="890" y="76" text-anchor="middle">citations ⊆ retrieved</text></g>
+    </svg>
+  </div>
+
+  <div class="out">
+    <div>
+      <div class="card answer" id="answer" aria-live="polite"></div>
+      <details class="trace" open><summary>Full trace</summary>
+        <div class="term"><div class="tb"><i></i><i></i><i></i><span id="traceMode">trace · rag-agent.js</span></div><pre id="trace"></pre></div>
+      </details>
+    </div>
+    <div class="side">
+      <div class="card viz"><h3>Router: class probabilities</h3><p class="cap">Naive Bayes, trained in your browser on <span id="nbN">69</span> labelled questions.</p><div class="bars" id="probBars"></div></div>
+      <div class="card viz"><h3>Retrieval: fused ranking</h3><p class="cap">Top passages after reciprocal rank fusion (k = 60), scaled to the best match.</p><div class="bars" id="rankBars"></div></div>
+    </div>
+  </div>
+
+  <a class="next" href="about.html"><div><small>NEXT · 7 / 7</small><b>About me</b></div><span class="go">→</span></a>
+</main>
+<footer id="site-foot"></footer>
+<script src="assets/site.js?v=29"></script>
+<script src="assets/rag-core.js?v=29"></script>
+<script src="assets/buddy.js?v=29"></script>
+<script src="assets/agent.js?v=29"></script>
+</body>
+</html>

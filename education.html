@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Education · Gopika Jaideep</title>
+<meta name="description" content="Gopika Jaideep's education: Master of Artificial Intelligence at Monash University and a B.Tech in Computer Science and Engineering, plus certifications and languages.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=Caveat:wght@600;700&display=swap">
+<script>try { const t = localStorage.getItem('gj-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
+<link rel="stylesheet" href="assets/site.css?v=29">
+<style>
+.degs { display: grid; gap: 18px; }
+.deg { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 20px 32px; padding: 26px; }
+@media (max-width: 780px) { .deg { grid-template-columns: minmax(0, 1fr); } }
+.deg .yr { font: 800 clamp(40px, 5vw, 60px)/.9 var(--display); letter-spacing: -.04em; color: var(--accent); }
+.deg .where { margin-top: 10px; font-size: 14px; color: var(--ink-2); }
+.deg h2 { font-size: clamp(26px, 3vw, 36px); }
+.deg .lead { margin: 8px 0 0; color: var(--ink-2); max-width: 62ch; }
+.grad-pol { width: 170px; margin-top: 22px; }
+@media (max-width: 780px) { .grad-pol { display: none; } }   /* the strip below shows it on phones */
+
+/* stage stepper */
+.stepper { margin-top: 20px; }
+.st-tabs { display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); gap: 8px; position: relative; }
+.st-tab { position: relative; text-align: left; padding: 14px 14px 12px; border-radius: 12px; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); cursor: pointer; font: inherit; display: grid; gap: 6px; transition: all .3s var(--ease); min-width: 0; }
+.st-tab:hover { border-color: var(--ink); }
+.st-tab .k { font: 500 11px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+.st-tab b { font: 700 15px/1.2 var(--body); }
+.st-tab .bar { height: 4px; border-radius: 4px; background: var(--sheet-2); overflow: hidden; }
+.st-tab .bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .5s var(--ease); }
+.st-tab[aria-selected="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.st-tab[aria-selected="true"] .bar i, .st-tab.past .bar i { width: 100%; }
+.st-tab.past .bar i { background: var(--sage); }
+@media (max-width: 600px) { .st-tabs { grid-template-columns: minmax(0, 1fr); } }
+.st-body { margin-top: 12px; padding: 18px; border-radius: 12px; background: var(--paper); border: 1px solid var(--rule); min-height: 96px; }
+.st-body .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.st-body .chips span { font: 500 13px/1 var(--body); padding: 9px 12px; border-radius: 999px; background: var(--sheet); border: 1px solid var(--rule); }
+.st-body .chips span.in { animation: pop .4s var(--ease) both; }
+@keyframes pop { from { transform: scale(.85); opacity: 0; } }
+.st-body p { margin: 12px 0 0; font-size: 14px; color: var(--ink-2); }
+.st-body p a { font-weight: 600; }
+.st-ctl { display: flex; gap: 8px; margin-top: 12px; align-items: center; }
+.st-ctl .note { font: 500 12px/1 var(--mono); color: var(--ink-3); margin-left: auto; }
+
+/* certifications */
+.certs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+@media (max-width: 900px) { .certs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 480px) { .certs { grid-template-columns: minmax(0, 1fr); } }
+.cert { padding: 20px; border-radius: 16px; background: var(--sheet); border: 1px solid var(--rule); display: grid; gap: 12px; align-content: start; transition: transform .35s var(--ease), border-color .2s; min-width: 0; }
+.cert:hover { transform: translateY(-5px) rotate(-.6deg); border-color: var(--ink); }
+.cert .seal { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; background: var(--sage-soft); color: var(--ok); border: 2px dashed var(--sage); transition: transform .6s var(--ease); }
+.cert:hover .seal { transform: rotate(180deg); }
+.cert .seal svg { width: 22px; height: 22px; }
+.cert b { font: 700 16px/1.25 var(--display); }
+.cert span { font: 500 12px/1.3 var(--mono); color: var(--ink-2); }
+
+/* languages */
+.langs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+@media (max-width: 760px) { .langs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.lang { padding: 18px; border-radius: 14px; background: var(--sheet); border: 1px solid var(--rule); display: grid; gap: 10px; min-width: 0; }
+.lang b { font: 800 22px/1 var(--display); }
+.lang .lv { display: flex; gap: 4px; }
+.lang .lv i { height: 8px; flex: 1; border-radius: 4px; background: var(--sheet-2); }
+.lang .lv i.on { background: var(--accent); }
+.lang span { font: 500 12px/1 var(--mono); color: var(--ink-2); }
+.lang-note { margin-top: 10px; font-size: 12.5px; color: var(--ink-3); }
+</style>
+</head>
+<body data-page="education.html">
+<header id="site-bar"></header>
+<main class="wrap">
+  <div class="page-head">
+    <div class="eyebrow reveal">§2 · Training data</div>
+    <h1 class="reveal d1">Education</h1>
+    <p class="lede reveal d2">A Master of AI in Melbourne on top of a CS degree from Kochi. <b>Step through each degree</b> to see what it covered.</p>
+  </div>
+
+  <div class="degs">
+    <article class="card deg reveal" id="monash">
+      <div><div class="yr">2024–25</div><div class="where">Feb 2024 – Dec 2025<br>Melbourne, Australia</div>
+        <figure class="polaroid grad-pol" style="--r:-4deg" tabindex="0" role="button" aria-label="Open photo: graduation day"><span class="tape"></span><img src="assets/photos/grad.webp" alt="Gopika laughing in a Monash graduation gown and cap" loading="lazy" style="--ar:3/4"><figcaption>graduation day! 🎓</figcaption></figure>
+      </div>
+      <div>
+        <h2>Master of Artificial Intelligence</h2>
+        <p class="lead">Monash University, one of the few Go8 universities with a dedicated AI master's, focused on deploying production-ready models rather than theory alone.</p>
+        <div class="stepper" data-stepper="monash"></div>
+      </div>
+    </article>
+    <article class="card deg reveal d1" id="btech">
+      <div><div class="yr">2019–23</div><div class="where">Kochi, India<br>APJ Abdul Kalam Technological University (KTU)</div></div>
+      <div>
+        <h2>B.Tech, Computer Science & Engineering</h2>
+        <p class="lead">SCMS School of Engineering and Technology. Core CS foundations, plus the C and C++ systems work I still draw on for performance-sensitive code.</p>
+        <div class="stepper" data-stepper="btech"></div>
+      </div>
+    </article>
+  </div>
+
+  <section class="block">
+    <div class="sec-title"><div><div class="eyebrow">Certifications</div><h2 style="margin-top:10px">Extra training runs</h2></div></div>
+    <div class="certs">
+      <div class="cert reveal"><span class="seal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span><b>Professional Certification in Data Engineering</b><span>GIofAI</span></div>
+      <div class="cert reveal d1"><span class="seal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span><b>Machine Learning with Python</b><span>Anaconda</span></div>
+      <div class="cert reveal d2"><span class="seal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span><b>Building AI-Powered Chatbots</b><span>IBM</span></div>
+      <div class="cert reveal d3"><span class="seal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span><b>Advanced Python</b><span>LinkedIn Learning</span></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-title"><div><div class="eyebrow">Languages</div><h2 style="margin-top:10px">Multilingual by default</h2></div></div>
+    <div class="langs">
+      <div class="lang reveal"><b>English</b><div class="lv"><i class="on"></i><i class="on"></i></div><span>fluent</span></div>
+      <div class="lang reveal d1"><b>Hindi</b><div class="lv"><i class="on"></i><i class="on"></i></div><span>fluent</span></div>
+      <div class="lang reveal d2"><b>Malayalam</b><div class="lv"><i class="on"></i><i class="on"></i></div><span>fluent</span></div>
+      <div class="lang reveal d3"><b>Tamil</b><div class="lv"><i class="on"></i><i></i></div><span>functional</span></div>
+    </div>
+    <p class="lang-note">Two levels, as listed on my CV: functional and fluent.</p>
+  </section>
+
+  <section class="block" aria-labelledby="uni-photos">
+    <div class="sec-title"><div><div class="eyebrow">Monash memories</div><h2 id="uni-photos" style="margin-top:10px">The people who made it fun</h2></div></div>
+    <div class="photo-strip">
+      <figure class="polaroid wide reveal" style="--r:-2deg" tabindex="0" role="button" aria-label="Open photo: the crew"><span class="tape"></span><img src="assets/photos/team.webp" alt="Gopika with a group of classmates in a computer lab" loading="lazy" style="--ar:4/3"><figcaption>the crew 💚</figcaption></figure>
+      <figure class="polaroid reveal d1" style="--r:3deg" tabindex="0" role="button" aria-label="Open photo: graduation day"><span class="tape"></span><img src="assets/photos/grad.webp" alt="Gopika laughing in a Monash graduation gown" loading="lazy" style="--ar:3/4"><figcaption>we did it!</figcaption></figure>
+    </div>
+  </section>
+
+  <a class="next" href="projects.html"><div><small>NEXT · 3 / 7</small><b>Projects</b></div><span class="go">→</span></a>
+</main>
+<footer id="site-foot"></footer>
+<script src="assets/site.js?v=29"></script>
+<script src="assets/rag-core.js?v=29"></script>
+<script src="assets/buddy.js?v=29"></script>
+<script>
+(() => {
+  const GJ = window.GJ;
+  const STAGES = {
+    monash: [
+      { k: 'Stage 1', t: 'Foundations', chips: ['Programming', 'Computer architecture', 'Statistics'] },
+      { k: 'Stage 2', t: 'Core AI', chips: ['Machine learning', 'Deep learning', 'Planning & automated reasoning', 'Multi-agent systems', 'Collective behaviour'] },
+      { k: 'Stage 3', t: 'Industry practice', chips: ['Industry studio project', 'Agile sprints', 'Team of 3', 'Monash Industry Showcase'], note: 'Delivered as <a href="projects.html#quitory">Quitory →</a>' },
+    ],
+    btech: [
+      { k: 'Core CS', t: 'Foundations', chips: ['Data structures', 'Algorithm design & analysis', 'Computer architecture', 'Operating systems'] },
+      { k: 'Systems', t: 'Data & networks', chips: ['Database management', 'Computer networks', 'Software engineering', 'C and C++'] },
+      { k: 'Final year', t: 'Projects', chips: ['Intro to AI & ML', 'Network intrusion detection', 'ALOKA (OpenCV, Android)'], note: '<a href="projects.html#nids">Intrusion detection →</a> · <a href="projects.html#aloka">ALOKA →</a>' },
+    ],
+  };
+  document.querySelectorAll('[data-stepper]').forEach(box => {
+    const key = box.dataset.stepper, S = STAGES[key];
+    box.innerHTML = `<div class="st-tabs" role="tablist" style="--n:${S.length}">${S.map((s, i) => `<button class="st-tab" type="button" role="tab" aria-selected="false" data-i="${i}"><span class="k">${s.k}</span><b>${s.t}</b><span class="bar"><i></i></span></button>`).join('')}</div>
+      <div class="st-body" role="tabpanel" aria-live="polite"></div>
+      <div class="st-ctl"><button class="btn" type="button" data-play>▶ Play through</button><span class="note">${S.reduce((n, s) => n + s.chips.length, 0)} topics</span></div>`;
+    const tabs = [...box.querySelectorAll('.st-tab')], body = box.querySelector('.st-body');
+    let cur = 0, timer = null;
+    const show = i => {
+      cur = i;
+      tabs.forEach((t, j) => { t.setAttribute('aria-selected', String(j === i)); t.classList.toggle('past', j < i); });
+      const s = S[i];
+      body.innerHTML = `<div class="chips">${s.chips.map((c, j) => `<span class="in" style="animation-delay:${j * .06}s">${c}</span>`).join('')}</div>${s.note ? `<p>${s.note}</p>` : ''}`;
+    };
+    tabs.forEach(t => t.addEventListener('click', () => { clearInterval(timer); show(+t.dataset.i); }));
+    box.querySelector('[data-play]').addEventListener('click', e => {
+      clearInterval(timer); show(0); let i = 0;
+      timer = setInterval(() => { i++; if (i >= S.length) { clearInterval(timer); return; } show(i); }, GJ.reduce ? 10 : 1600);
+    });
+    show(0);
+  });
+})();
+</script>
+</body>
+</html>
