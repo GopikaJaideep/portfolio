@@ -18,9 +18,15 @@
       <nav class="tabs" aria-label="Pages"><span class="pill" aria-hidden="true"></span>${PAGES.map(([h, l]) => `<a href="${h}"${h === here ? ' aria-current="page"' : ''}>${l}</a>`).join('')}</nav>
       <button class="theme" id="themeBtn" type="button"></button></div>`;
     const tabs = bar.querySelector('.tabs'), pill = tabs.querySelector('.pill');
-    const place = el => { if (!el) { pill.style.width = '0'; return; } pill.style.left = el.offsetLeft + 'px'; pill.style.width = el.offsetWidth + 'px'; };
+    // the pill marks one tab; whichever tab it sits under gets the light "on pill" text, so text never vanishes into it
+    const place = el => {
+      tabs.querySelectorAll('a').forEach(a => a.classList.toggle('on-pill', a === el));
+      if (!el) { pill.style.width = '0'; return; }
+      pill.style.left = el.offsetLeft + 'px'; pill.style.width = el.offsetWidth + 'px';
+    };
     const cur = tabs.querySelector('[aria-current]');
     requestAnimationFrame(() => { place(cur); cur?.scrollIntoView({ block: 'nearest', inline: 'center' }); });
+    document.fonts?.ready.then(() => place(cur));            // re-measure once the web font has replaced the fallback
     addEventListener('resize', () => place(cur));
     tabs.querySelectorAll('a').forEach(a => { a.addEventListener('mouseenter', () => place(a)); });
     tabs.addEventListener('mouseleave', () => place(cur));
