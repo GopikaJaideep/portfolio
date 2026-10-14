@@ -88,7 +88,7 @@
   home(); y = ty;
   addEventListener('pointermove', e => {
     pointerX = e.clientX; pointerY = e.clientY; lastMove = performance.now(); waved = false;
-    // when the pointer comes close she stops and waits to be clicked, instead of stepping away from it
+    // when the pointer comes close the cartoon stops and waits to be clicked, instead of stepping away from it
     const near = Math.hypot(clamp(e.clientX, x, x + W()) - e.clientX, clamp(e.clientY, y, y + H()) - e.clientY) < 90;
     if (near) { if (!reading) { tx = x; ty = y; } frozenUntil = performance.now() + 900; return; }
     if (finePointer && !reduce && chat.hidden && !hoverSelf && !reading && performance.now() > frozenUntil) aimAt(e.clientX, e.clientY);
