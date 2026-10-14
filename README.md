@@ -19,4 +19,8 @@ Plain HTML, CSS and JavaScript (no framework). Hosted on Netlify; `netlify/funct
 python -m http.server 8766
 ```
 
-Then open http://localhost:8766. For the live LLM locally, put `GROQ_API_KEY=...` in a `.env` file (git-ignored) and run `netlify dev` instead. Deployment notes are in [DEPLOY.md](DEPLOY.md).
+Then open http://localhost:8766. For the live LLM locally, put `GROQ_API_KEY=...` in a `.env` file (git-ignored) and run `netlify dev` instead.
+
+## Deploy
+
+Netlify builds from this repo's `main` branch on every push (`netlify.toml` copies the public files into `dist/`). The Groq key is set in Netlify under Project configuration → Environment variables as `GROQ_API_KEY`; a redeploy is needed after changing it.
