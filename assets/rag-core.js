@@ -319,20 +319,22 @@
   const isJD = q => q.length > 280 && JD_RE.test(q);
   const isFit = q => isJD(q) || FIT_RE.test(q);
   // AI engineering evidence is always in the running, so a short "am I a fit for X" still surfaces the strongest work
-  const FIT_SEED = 'LLM agents multi-agent orchestration RAG retrieval evaluation red-teaming mutation testing CI Python FastAPI AWS';
+  const FIT_SEEDS = ['LLM agents multi-agent orchestration intent routing', 'hybrid RAG retrieval BM25 embeddings citations', 'LLM evaluation red-teaming mutation testing eval-gated CI', 'serverless AWS Lambda API Gateway FastAPI backend'];
   function fitRetrieve(text) {
     const lines = String(text).split(/[\n\u2022\u00b7;]+|(?<=[.!?])\s+/).map(s => s.trim()).filter(s => s.split(/\s+/).length >= 3).slice(0, 30);
     // job-ad filler matches degree and contact passages, not evidence: drop it before searching
-    const NOISE = /(?:senior|junior|lead|principal|staff|engineer(?:ing|s)?|developer|role|job|position|team|experience[ds]?|years?|strong|excellent|ability|skills?|knowledge|understanding|requirements?|responsibilities|nice|have|must|plus|preferred|work(?:ing)?|build(?:ing)?|design(?:ing)?|candidate|you|we|our|will)/gi;
-    const parts = [FIT_SEED, ...(lines.length ? lines : [String(text)])].map(p => p.replace(NOISE, ' '));
+    const NOISE = /\b(?:senior|junior|lead|principal|staff|engineer(?:ing|s)?|developer|role|job|position|team|experience[ds]?|years?|strong|excellent|ability|skills?|knowledge|understanding|requirements?|responsibilities|nice|have|must|plus|preferred|work(?:ing)?|build(?:ing)?|design(?:ing)?|candidate|you|we|our|will)\b/gi;
+    // the AI-engineering seeds only apply to AI/ML roles; a data analyst role is matched on its own words
+    const seeds = /\b(?:ai|ml|machine learning|llm|genai|gen ai|artificial intelligence|nlp|deep learning|agents?|agentic|rag)\b/i.test(text) ? FIT_SEEDS : [];
+    const parts = [...seeds, ...(lines.length ? lines : [String(text)])].map(p => p.replace(NOISE, ' '));
     const score = new Map();
     parts.forEach((p, pi) => {
       const top = retrieve(p, null, 3).top, best = top[0]?.lex || 1;
       // each line votes for its matches, weighted by how strongly they match; the AI-engineering seed always counts
-      top.forEach((r, i) => score.set(r.d, (score.get(r.d) || 0) + (pi === 0 ? 1 : 0.8) * (r.lex / best) / (i + 1)));
+      top.forEach((r, i) => score.set(r.d, (score.get(r.d) || 0) + (pi < seeds.length ? 0.7 : 0.8) * (r.lex / best) / (i + 1)));
     });
     const wantsLogistics = /\b(?:melbourne|location|located|on-?site|hybrid|remote|available|availability|start date|visa|work rights)\b/i.test(text);
-    const wantsDegree = /(?:degree|bachelor|master'?s?|graduate|qualification|phd|tertiary|university|computer science)/i.test(text);
+    const wantsDegree = /\b(?:degree|bachelor|master'?s?|graduate|qualification|phd|tertiary|university|computer science)\b/i.test(text);
     const skip = new Set(['languages', ...(wantsLogistics ? [] : ['contact']), ...(wantsDegree ? [] : ['masters', 'btech'])]);
     // evidence of doing the work outranks degree and contact details (those stay available, just lower)
     const weight = d => (d.sec === 'education' || d.sec === 'contact' ? 0.45 : 1);
@@ -371,8 +373,9 @@
       return extractive(R, retrieved, H, `LLM ${e?.code || 'upstream_error'}`);
     }
     text = String(text || '').trim();
-    const lines = text.split('\n'), pre = lines.map(l => (l.match(/^([^:\n]{3,40}):\s+(?=[^:\n]{2,40}:)/) || [])[1]).filter(Boolean);
-    if (pre.length >= 2 && pre.every(x => x === pre[0])) text = lines.map(l => l.startsWith(pre[0] + ':') ? l.slice(pre[0].length + 1).trimStart() : l).join('\n');
+    text = text.replace(/^([^:\n]{3,40}):\s+(?=[^:\n]{2,40}:)/, '$1\n');
+    const seen = new Map();
+    text = text.replace(/(^|\n|[.!?]\s+)([A-Z][^:\n.]{2,40}):\s+/g, (m, lead, label) => { const n = (seen.get(label) || 0) + 1; seen.set(label, n); return n > 1 ? lead : m; });
     H.stage('agent', 'done'); H.stage('verify', 'active');
     const cited = renderCited(text, retrieved);
     if (!text || /OUT_OF_SCOPE/.test(text) || !cited.order.length) return extractive(R, retrieved, H, 'role-fit answer had no valid citations');
