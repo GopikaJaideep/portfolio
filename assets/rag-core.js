@@ -283,6 +283,7 @@
         'Write in the first person as Gopika ("I built..."). Use ONLY facts from portfolio passages: the ones below plus any you fetch with the search tool.',
         canTools ? 'If the passages below do not fully answer the question, call search_portfolio with a better query (at most 2 calls).' : '',
         'Answer in 2 to 4 plain sentences, no headings or lists. After each claim put the passage id in square brackets, exactly as given, e.g. [carewise-rag].',
+        'Stay close to the passage wording. Do not add qualifiers or details the passages do not state (for example extensive, complex, expert, proficient, years of experience), and do not invent how tools were used.',
         'If the passages do not support an answer, reply with exactly: OUT_OF_SCOPE',
         '', 'Question: ' + query, '', 'Passages:', seed,
       ].filter(x => x !== '').join('\n');
