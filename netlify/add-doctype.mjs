@@ -7,7 +7,7 @@ import path from 'node:path';
 
 const OUT = 'dist';
 const PAGES = ['index.html', 'experience.html', 'education.html', 'projects.html', 'skills.html', 'evals.html', 'agent.html', 'about.html'];
-const MEDIA = ['character.mp4', 'poster.jpg', 'gopika.jpg'];
+const MEDIA = ['character.mp4', 'poster.jpg', 'gopika.jpg', 'googled4348b6ca194e413.html'];   // last one: Google Search Console verification, served as-is
 
 fs.rmSync(OUT, { recursive: true, force: true });
 fs.mkdirSync(OUT);
