@@ -155,7 +155,9 @@ export default async (req, context) => {
   }
 
   // try models in order; move on if one is retired, unknown or rate-limited
-  for (const model of models) {
+  // matching a job description is the hardest task: try the larger model first, falling back as usual
+  const order = input.mode === 'fit' ? ['openai/gpt-oss-120b', ...models.filter(m => m !== 'openai/gpt-oss-120b')] : models;
+  for (const model of order) {
     let r;
     try { r = await groq(model, payload, key); } catch { continue; }
     if (r.status === 200) {
