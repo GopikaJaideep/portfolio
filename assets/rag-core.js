@@ -90,11 +90,12 @@
   // ---------- (5) citation verifier: keep only citations to passages that were actually retrieved ----------
   function renderCited(text, retrievedIds) {
     const order = [], dropped = [];
-    const html = esc(text).replace(/\s?\[([a-z0-9-]+)\]/g, (m, id) => {
+    // models sometimes group ids in one bracket, e.g. [skills-data, earlier-roles]: check each one
+    const html = esc(text).replace(/\s?\[([a-z0-9-]+(?:\s*,\s*[a-z0-9-]+)*)\]/g, (m, ids) => ids.split(/\s*,\s*/).map(id => {
       if (!retrievedIds.has(id) || !BY_ID[id]) { dropped.push(id); return ''; }
       if (!order.includes(id)) order.push(id);
       return `<sup><a href="${BY_ID[id].href}" title="${esc(BY_ID[id].title)}">[${order.indexOf(id) + 1}]</a></sup>`;
-    });
+    }).join(''));
     return { html, order, dropped, sources: order.map(id => ({ id, title: BY_ID[id].title, href: BY_ID[id].href })) };
   }
 
@@ -312,7 +313,7 @@
   }
 
   // ---------- role fit: "am I a good fit for X?" or a pasted job description ----------
-  const FIT_RE = /\b(?:good|great|right|strong) (?:fit|match|candidate)\b|\bfit for\b|\bsuit(?:able|ed)? for\b|\bqualified for\b|\bwhy should (?:we|i) hire\b|\bhire you\b|\bmatch(?:es)? (?:this|the|our) (?:role|job|position)\b/i;
+  const FIT_RE = /\b(?:good|great|right|strong) (?:fit|match|candidate)\b|\bfit for\b|\bsuit(?:able|ed)? for\b|\bqualified for\b|\bwhy should (?:we|i) hire\b|\bhire you\b|\bmatch(?:es)? (?:this|the|our) (?:role|job|position)\b|\b(?:suit|fit|match|right for)\b[^.?!]{0,40}\b(?:role|job|position|opening|vacancy)\b/i;
   const JD_RE = /\b(?:responsibilit|requirement|qualification|you will|you'll|we are looking|we're looking|about the role|nice to have|must have|experience (?:with|in)|years of experience)/i;
   const isJD = q => q.length > 280 && JD_RE.test(q);
   const isFit = q => isJD(q) || FIT_RE.test(q);
