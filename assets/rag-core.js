@@ -374,6 +374,13 @@
     }
     text = String(text || '').trim();
     text = text.replace(/^([^:\n]{3,40}):\s+(?=[^:\n]{2,40}:)/, '$1\n');
+    // evidence first: lines about gaps never lead, and only one gap sentence is kept, at the end
+    {
+      const ls = text.split('\n'), isGap = l => /\bnot (?:been )?shown\b/i.test(l) && !/\[[a-z0-9-]+/.test(l);
+      const gaps = ls.filter(isGap), body = ls.filter(l => !isGap(l));
+      const keep = gaps.find(l => /are not shown in my portfolio/i.test(l)) || gaps[gaps.length - 1];
+      text = body.concat(keep ? [keep] : []).join('\n');
+    }
     const seen = new Map();
     text = text.replace(/(^|\n|[.!?]\s+)([A-Z][^:\n.]{2,40}):\s+/g, (m, lead, label) => { const n = (seen.get(label) || 0) + 1; seen.set(label, n); return n > 1 ? lead : m; });
     H.stage('agent', 'done'); H.stage('verify', 'active');
