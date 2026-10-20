@@ -71,6 +71,8 @@
   // ---------- wire up ----------
   const qInput = $('q');
   $('askForm').addEventListener('submit', e => { e.preventDefault(); const v = qInput.value.trim(); if (v) run(v); });
+  qInput.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); $('askForm').requestSubmit(); } });
+  qInput.addEventListener('input', () => { qInput.style.height = ''; qInput.style.height = Math.min(qInput.scrollHeight, 160) + 'px'; });
   $('stopBtn').addEventListener('click', () => ctl?.abort());
   document.querySelectorAll('#sugg .chip').forEach(b => b.addEventListener('click', () => { qInput.value = b.textContent; run(b.textContent); }));
   answerEl.addEventListener('click', e => { const b = e.target.closest('[data-redirect]'); if (b) { qInput.value = b.dataset.redirect; run(b.dataset.redirect); } });

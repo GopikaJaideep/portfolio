@@ -32,7 +32,7 @@
     <div class="bc-log" id="bcLog" aria-live="polite"></div>
     <div class="bc-sugg" id="bcSugg"></div>
     <form class="bc-form" id="bcForm" autocomplete="off"><label class="sr" for="bcIn">Message Assistant Gopika</label>
-      <input id="bcIn" type="text" maxlength="200" placeholder="Ask me, or tell me where to go…"><button class="btn solid" type="submit" aria-label="Send">→</button></form>`;
+      <textarea id="bcIn" rows="1" maxlength="4000" placeholder="Ask me, paste a job description, or tell me where to go…"></textarea><button class="btn solid" type="submit" aria-label="Send">→</button></form>`;
   document.body.appendChild(chat);
   const logEl = chat.querySelector('#bcLog'), input = chat.querySelector('#bcIn'), sugg = chat.querySelector('#bcSugg');
 
@@ -349,8 +349,10 @@
   let ctl = null;
   async function send(q) {
     q = q.trim(); if (!q) return;
-    addMsg('me', esc(q)); input.value = ''; renderSugg([]);
-    const p = plan(q);
+    const jd = RAG?.isJD?.(q);
+    // a pasted job description shows as a short bubble, and never triggers navigation commands
+    addMsg('me', jd ? `📄 Job description <span class="st">(${q.split(/\s+/).length} words)</span>` : esc(q)); input.value = ''; input.style.height = ''; renderSugg([]);
+    const p = jd ? null : plan(q);
     if (p) { nod(); addMsg('bot', act(p)); renderSugg(); return; }
     if (!RAG) { addMsg('bot', 'My brain didn\'t load on this page. Try the RAG Agent page!'); return; }
     ctl?.abort(); ctl = new AbortController();
@@ -380,6 +382,8 @@
     renderSugg();
   }
   chat.querySelector('#bcForm').addEventListener('submit', e => { e.preventDefault(); send(input.value); });
+  input.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); chat.querySelector('#bcForm').requestSubmit(); } });
+  input.addEventListener('input', () => { input.style.height = ''; input.style.height = Math.min(input.scrollHeight, 120) + 'px'; });
   chat.addEventListener('click', e => {
     const q = e.target.closest('[data-q]'); if (q) { send(q.dataset.q); return; }
     const g = e.target.closest('[data-go]'); if (g) { addMsg('bot', `Flying over to ${esc(g.dataset.label)}… ✈️`); flyTo(g.dataset.go, g.dataset.label); }

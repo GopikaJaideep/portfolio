@@ -257,9 +257,9 @@ footer.site { border-top: 1px solid var(--rule); margin-top: 24px; padding-block
 .bc-sugg { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 12px 8px; }
 .bc-sugg:empty { display: none; }
 .bc-form { display: flex; gap: 6px; padding: 10px 12px; border-top: 1px solid var(--rule); }
-.bc-form input { flex: 1; min-width: 0; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); font: 400 14px/1.2 var(--body); }
-.bc-form input:focus { outline: none; border-color: var(--accent); }
-.bc-form .btn { padding: 10px 14px; }
+.bc-form textarea { flex: 1; min-width: 0; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); font: 400 14px/1.3 var(--body); resize: none; max-height: 120px; overflow-y: auto; }
+.bc-form textarea:focus { outline: none; border-color: var(--accent); }
+.bc-form .btn { padding: 10px 14px; align-self: flex-end; }
 
 /* ---------- personal photos: polaroids and stickers ---------- */
 .polaroid { position: relative; display: inline-block; margin: 0; padding: 10px 10px 34px; background: #fffdf8; border-radius: 4px; box-shadow: 0 14px 30px -14px rgba(30, 18, 45, .5), 0 2px 6px rgba(30, 18, 45, .12); transform: rotate(var(--r, -3deg)); transition: transform .35s var(--ease), box-shadow .35s; cursor: zoom-in; max-width: 100%; }
