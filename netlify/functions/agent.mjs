@@ -149,7 +149,7 @@ export default async (req, context) => {
     if (turns.length < 2) { payload.tools = [SEARCH_TOOL]; payload.tool_choice = 'auto'; }
   } else if (input.mode === 'fit') {
     const seed = passages(input.passages, 8);
-    payload = { messages: [{ role: 'system', content: FIT_RULES }, { role: 'user', content: `Role or job description:\n<<<${question}>>>\n\nPassages:\n${fmt(seed) || '(none)'}` }], max_tokens: 700, temperature: 0.1 };
+    payload = { messages: [{ role: 'system', content: FIT_RULES }, { role: 'user', content: `Role or job description:\n<<<${question}>>>\n\nPassages:\n${fmt(seed) || '(none)'}` }], max_tokens: 700, temperature: 0 };
   } else {
     return json({ error: 'bad_request' }, 400);
   }

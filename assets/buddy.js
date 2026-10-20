@@ -369,7 +369,7 @@
       thinking = false; nod();
       typing.remove();
       if (res.kind === 'answer') {
-        const go = res.cited.sources.map(s => `<button class="chip" type="button" data-go="${s.href}" data-label="${esc(s.title)}">Take me to ${esc(s.title)} ✈️</button>`).join('');
+        const go = res.cited.sources.filter((s, i, all) => all.findIndex(x => x.href === s.href) === i).slice(0, 3).map(s => `<button class="chip" type="button" data-go="${s.href}" data-label="${esc(s.title)}">Take me to ${esc(s.title)} ✈️</button>`).join('');
         addMsg('bot', `${res.cited.html}${go ? `<div class="bc-acts">${go}</div>` : ''}`);
       } else if (res.kind === 'joke') {
         addMsg('bot', `${esc(res.line)} 😄<div class="bc-acts">${res.redirects.map(t => `<button class="chip" type="button" data-q="${esc(t)}">${esc(t)}</button>`).join('')}</div>`);

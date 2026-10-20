@@ -371,6 +371,8 @@
       return extractive(R, retrieved, H, `LLM ${e?.code || 'upstream_error'}`);
     }
     text = String(text || '').trim();
+    const lines = text.split('\n'), pre = lines.map(l => (l.match(/^([^:\n]{3,40}):\s+(?=[^:\n]{2,40}:)/) || [])[1]).filter(Boolean);
+    if (pre.length >= 2 && pre.every(x => x === pre[0])) text = lines.map(l => l.startsWith(pre[0] + ':') ? l.slice(pre[0].length + 1).trimStart() : l).join('\n');
     H.stage('agent', 'done'); H.stage('verify', 'active');
     const cited = renderCited(text, retrieved);
     if (!text || /OUT_OF_SCOPE/.test(text) || !cited.order.length) return extractive(R, retrieved, H, 'role-fit answer had no valid citations');
